@@ -3,7 +3,7 @@ const Modal = ({ isOpen, children }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-      <div className="m-5 w-full max-w-md rounded-lg bg-hover px-5 py-6 shadow-lg">
+      <div className="m-5 w-full max-w-md rounded-lg bg-background px-5 py-6 shadow-lg">
         <div>{children}</div>
       </div>
     </div>

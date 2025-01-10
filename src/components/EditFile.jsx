@@ -123,16 +123,36 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
                   onChange={handleLanguageChange}
                   className="rounded border bg-hover p-2"
                 >
-                  <option value="javascript">JavaScript</option>
-                  <option value="python">Python</option>
-                  <option value="java">Java</option>
-                  <option value="cpp">C++</option>
-                  <option value="csharp">C#</option>
-                  <option value="go">Go</option>
-                  <option value="html">HTML</option>
-                  <option value="css">CSS</option>
-                  <option value="typescript">TypeScript</option>
-                  <option value="php">PHP</option>
+                  <option className="text-background" value="javascript">
+                    JavaScript
+                  </option>
+                  <option className="text-background" value="python">
+                    Python
+                  </option>
+                  <option className="text-background" value="java">
+                    Java
+                  </option>
+                  <option className="text-background" value="cpp">
+                    C++
+                  </option>
+                  <option className="text-background" value="csharp">
+                    C#
+                  </option>
+                  <option className="text-background" value="go">
+                    Go
+                  </option>
+                  <option className="text-background" value="html">
+                    HTML
+                  </option>
+                  <option className="text-background" value="css">
+                    CSS
+                  </option>
+                  <option className="text-background" value="typescript">
+                    TypeScript
+                  </option>
+                  <option className="text-background" value="php">
+                    PHP
+                  </option>
                 </select>
               </div>
               <div className="flex flex-col gap-4">
@@ -143,9 +163,15 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
                   onChange={handleThemeChange}
                   className="rounded border bg-hover p-2"
                 >
-                  <option value="vs-dark">VS Dark</option>
-                  <option value="light">Light</option>
-                  <option value="hc-black">High Contrast Black</option>
+                  <option className="text-background" value="vs-dark">
+                    VS Dark
+                  </option>
+                  <option className="text-background" value="light">
+                    Light
+                  </option>
+                  <option className="text-background" value="hc-black">
+                    High Contrast Black
+                  </option>
                 </select>
               </div>
             </div>
@@ -160,7 +186,7 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
                 <Button onClick={() => setIsConfirmDelete(true)}>Delete</Button>
               </div>
               <div className="flex">
-                <Button onClick={() => setIsConfirmSave(true)}>Save As</Button>
+                <Button onClick={() => setIsConfirmSave(true)}>Save</Button>
               </div>
             </div>
           </div>
@@ -187,7 +213,7 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
           <div className="flex flex-col justify-center gap-4 text-center">
             <Title>Are you sure?</Title>
             <p>Do you want to clear the file content?</p>
-            <div className="flex gap-2">
+            <div className="mt-2 flex gap-2">
               <Button onClick={() => setIsConfirmClear(false)}>Cancel</Button>
               <Button onClick={clearHandler}>Confirm</Button>
             </div>
@@ -205,7 +231,7 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
             <p>
               Do you want to delete the file <strong>{fileName}</strong>?
             </p>
-            <div className="flex gap-2">
+            <div className="mt-2 flex gap-2">
               <Button onClick={() => setIsConfirmDelete(false)}>Cancel</Button>
               <Button onClick={deleteHandler}>Confirm</Button>
             </div>
@@ -226,7 +252,7 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
               onKeyDown={handleKeyDown}
               onChange={(e) => setNewFileName(e.target.value)}
             />
-            <div className="flex gap-2">
+            <div className="mt-2 flex gap-2">
               <Button onClick={() => setIsConfirmRename(false)}>Cancel</Button>
               <Button onClick={renameHandler}>Rename</Button>
             </div>

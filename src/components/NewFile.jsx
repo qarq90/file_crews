@@ -91,16 +91,36 @@ const NewFile = ({ crew_id }) => {
                   onChange={handleLanguageChange}
                   className="rounded border bg-hover p-2"
                 >
-                  <option value="javascript">JavaScript</option>
-                  <option value="python">Python</option>
-                  <option value="java">Java</option>
-                  <option value="cpp">C++</option>
-                  <option value="csharp">C#</option>
-                  <option value="go">Go</option>
-                  <option value="html">HTML</option>
-                  <option value="css">CSS</option>
-                  <option value="typescript">TypeScript</option>
-                  <option value="php">PHP</option>
+                  <option className="text-background" value="javascript">
+                    JavaScript
+                  </option>
+                  <option className="text-background" value="python">
+                    Python
+                  </option>
+                  <option className="text-background" value="java">
+                    Java
+                  </option>
+                  <option className="text-background" value="cpp">
+                    C++
+                  </option>
+                  <option className="text-background" value="csharp">
+                    C#
+                  </option>
+                  <option className="text-background" value="go">
+                    Go
+                  </option>
+                  <option className="text-background" value="html">
+                    HTML
+                  </option>
+                  <option className="text-background" value="css">
+                    CSS
+                  </option>
+                  <option className="text-background" value="typescript">
+                    TypeScript
+                  </option>
+                  <option className="text-background" value="php">
+                    PHP
+                  </option>
                 </select>
               </div>
               <div className="flex flex-col gap-4">
@@ -111,9 +131,15 @@ const NewFile = ({ crew_id }) => {
                   onChange={handleThemeChange}
                   className="rounded border bg-hover p-2"
                 >
-                  <option value="vs-dark">VS Dark</option>
-                  <option value="light">Light</option>
-                  <option value="hc-black">High Contrast Black</option>
+                  <option className="text-background" value="vs-dark">
+                    VS Dark
+                  </option>
+                  <option className="text-background" value="light">
+                    Light
+                  </option>
+                  <option className="text-background" value="hc-black">
+                    High Contrast Black
+                  </option>
                 </select>
               </div>
             </div>

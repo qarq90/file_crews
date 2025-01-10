@@ -1,12 +1,15 @@
 import Modal from "../ui/Modal";
 import { useState } from "react";
 import Title from "../ui/Title";
+import Image from "next/image";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import Label from "../ui/Label";
 import { useRouter } from "next/navigation";
+import { MdGroups } from "react-icons/md";
 
 export const Card = ({ ...props }) => {
+  console.log(props.crew.crew_token);
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +26,7 @@ export const Card = ({ ...props }) => {
   };
 
   const joinHandler = () => {
-    if (password === props.crew.crew_token) {
+    if (password == props.crew.crew_token) {
       setPassword("");
       setIsOpen(false);
       setIsIncorrectPassword(false);
@@ -44,9 +47,23 @@ export const Card = ({ ...props }) => {
     <>
       <div
         onClick={() => setIsOpen(true)}
-        className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-md bg-foreground px-4 py-8 text-background"
+        className="flex cursor-pointer flex-col items-center justify-center gap-6 rounded-md bg-hover px-4 py-8 text-foreground"
         key={props.id}
       >
+        <div>
+          {props?.crew?.crew_banner?.base64 ? (
+            <Image
+              src={props.crew.crew_banner.base64}
+              className="h-28 w-28 rounded-full"
+              alt="crew_banner"
+              width={100}
+              height={100}
+            />
+          ) : (
+            <MdGroups size={100} />
+          )}
+        </div>
+
         <div className="text-center">
           <Title>{props.crew.crew_name}</Title>
         </div>

@@ -5,6 +5,10 @@ const { Schema } = mongoose;
 const CrewSchema = new Schema({
   crew_name: { type: String, required: true },
   crew_token: { type: String, required: true },
+  crew_banner: {
+    name: { type: String },
+    base64: { type: String },
+  },
 });
 
 let Crew;

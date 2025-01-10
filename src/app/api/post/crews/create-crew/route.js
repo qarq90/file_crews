@@ -10,7 +10,11 @@ export const POST = async (request) => {
 
     const result = await Crew.create({
       crew_name: crewData.crew_name,
-      crew_token: crewData.crew_password,
+      crew_token: crewData.crew_token,
+      crew_banner: {
+        name: crewData.crew_banner.name,
+        base64: crewData.crew_banner.base64,
+      },
     });
 
     if (result) {

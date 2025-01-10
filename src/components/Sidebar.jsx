@@ -19,7 +19,7 @@ export const Sidebar = () => {
   return (
     <>
       <Button
-        className="absolute left-4 top-4 z-50 flex items-center justify-center rounded-md bg-hover p-2 text-foreground md:hidden"
+        className="absolute left-4 top-5 z-50 flex items-center justify-center rounded-md bg-hover p-2 text-foreground md:hidden"
         onClick={toggleSidebar}
       >
         {!isOpen ? <FaBars size={28} /> : <FaTimes size={28} />}
@@ -31,13 +31,14 @@ export const Sidebar = () => {
         }`}
       >
         <div>
-          <Link
-            href="/"
-            className="mb-4 mt-4 flex h-16 items-center justify-start gap-3 rounded-md bg-hover px-4 py-2 text-2xl hover:bg-hover hover:opacity-75"
+          <div
+            className="bg-hover/50 mb-4 mt-5 flex h-16 items-center justify-start gap-3 rounded-md bg-foreground px-4 py-2 text-3xl text-background"
             onClick={closeSidebar}
+            style={{ fontFamily: '"Josefin Sans", serif' }}
           >
-            <PiSunglassesFill size={42} /> CrewVault
-          </Link>
+            <PiSunglassesFill size={42} />
+            <div className="pt-2">CrewVault</div>
+          </div>
           <Link
             href="/crews"
             className="my-1 flex items-center justify-start gap-3 rounded-md px-4 py-2 text-xl hover:bg-hover hover:opacity-75"

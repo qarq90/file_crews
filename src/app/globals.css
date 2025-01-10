@@ -5,9 +5,9 @@
 @tailwind utilities;
 
 :root {
-  --background: #151515;
-  --foreground: #aaa;
-  --hover: #191919;
+  --background: #111419;
+  --foreground: rgba(129, 212, 216, 0.75);
+  --hover: rgba(129, 212, 216, 0.05);
 }
 
 body {
@@ -26,7 +26,6 @@ body {
 .banterLoader {
   width: 72px;
   height: 72px;
-  margin-left: -36px;
 }
 
 .banterLoaderBox {
