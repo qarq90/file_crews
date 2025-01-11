@@ -1,19 +1,20 @@
 "use client";
 
-import Title from "@/components/ui/Title";
-import Link from "next/link";
-import Button from "@/components/ui/Button";
-import Label from "@/components/ui/Label";
-import { disbandCrew, fetchCrew } from "@/helper/crewHelpers";
-import { fetchCrewFiles } from "@/helper/fileHelpers";
+import { MdGroups } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { Loading } from "@/components/loaders/Loading";
+import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import { NoFiles } from "@/components/empty/NoFiles";
+import { fetchCrewFiles } from "@/helper/fileHelpers";
+import { Loading } from "@/components/loaders/Loading";
+import { disbandCrew, fetchCrew } from "@/helper/crewHelpers";
+import Link from "next/link";
+import Title from "@/components/ui/Title";
+import Label from "@/components/ui/Label";
 import Modal from "@/components/ui/Modal";
-import { useRouter } from "next/navigation";
-import { MdGroups } from "react-icons/md";
+import Button from "@/components/ui/Button";
 import Image from "next/image";
+
 const Client = ({ crew_id }) => {
   const router = useRouter();
 
@@ -34,7 +35,7 @@ const Client = ({ crew_id }) => {
       } finally {
         setTimeout(() => {
           setIsLoading(false);
-        }, 2000);
+        }, 500);
       }
     };
 
@@ -83,17 +84,17 @@ const Client = ({ crew_id }) => {
           </div>
           <div className="flex gap-3">
             <Link
-              className="absolute right-[11.5rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
+              className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
               href={`/crew/${crew_id}/edit`}
             >
               <Button disabled={true}>Edit Crew</Button>
             </Link>
-            <div
+            {/* <div
               onClick={() => setIsDeleteCrew(true)}
               className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
             >
               <Button disabled={true}>Disband Crew</Button>
-            </div>
+            </div> */}
           </div>
         </div>
         <Loading />
@@ -129,17 +130,17 @@ const Client = ({ crew_id }) => {
             </div>
             <div className="flex gap-3">
               <Link
-                className="absolute right-[11.5rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
+                className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
                 href={`/crew/${crew_id}/edit`}
               >
                 <Button>Edit Crew</Button>
               </Link>
-              <div
+              {/* <div
                 onClick={() => setIsDeleteCrew(true)}
                 className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
               >
                 <Button>Disband Crew</Button>
-              </div>
+              </div> */}
             </div>
           </div>
           <NoFiles />
@@ -202,20 +203,20 @@ const Client = ({ crew_id }) => {
           </div>
           <div className="flex gap-3">
             <Link
-              className="absolute right-[11.5rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
+              className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
               href={`/crew/${crew_id}/edit`}
             >
               <Button>Edit Crew</Button>
             </Link>
-            <div
+            {/* <div
               onClick={() => setIsDeleteCrew(true)}
               className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
             >
               <Button>Disband Crew</Button>
-            </div>
+            </div> */}
           </div>
         </div>
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-1 md:mt-8 md:grid-cols-4 md:gap-4">
+        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-1 md:mt-8 md:grid-cols-4 md:gap-4">
           {crewFiles.map((file, index) => (
             <Link
               href={`/crew/${crew_id}/file/${file._id}`}

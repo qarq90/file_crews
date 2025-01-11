@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
-import { deleteFile, updateFile } from "@/helper/fileHelpers";
 import { useRouter } from "next/navigation";
-import MonacoEditor from "@monaco-editor/react";
+import { useState, useEffect } from "react";
+import { useUIStore } from "@/stores/UIStore";
+import { deleteFile, updateFile } from "@/helper/fileHelpers";
 import Label from "./ui/Label";
 import Modal from "./ui/Modal";
 import Title from "./ui/Title";
-import Button from "@/components/ui/Button";
 import Input from "./ui/Input";
+import Button from "@/components/ui/Button";
+import MonacoEditor from "@monaco-editor/react";
 
 const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
   const router = useRouter();
@@ -18,6 +19,8 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
   const [isConfirmRename, setIsConfirmRename] = useState(false);
   const [newFileName, setNewFileName] = useState(fileName);
+
+  const { setIsUseLoading } = useUIStore();
 
   const handleLanguageChange = (e) => {
     const selectedLang = e.target.value;
@@ -39,8 +42,10 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
     };
 
     try {
+      setIsUseLoading(true);
       await updateFile(crew_id, file_id, fileData);
       setIsConfirmSave(false);
+      setIsUseLoading(false);
       router.push(`/crew/${crew_id}`);
     } catch (error) {
       console.error("Error adding file:", error.message);

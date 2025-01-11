@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loading } from "@/components/loaders/Loading";
-import { fetchFile } from "@/helper/fileHelpers";
 import { FaArrowLeft } from "react-icons/fa";
-import Title from "@/components/ui/Title";
+import { fetchFile } from "@/helper/fileHelpers";
+import { Loading } from "@/components/loaders/Loading";
 import Link from "next/link";
+import Title from "@/components/ui/Title";
 import EditFile from "@/components/EditFile";
 import Button from "@/components/ui/Button";
 

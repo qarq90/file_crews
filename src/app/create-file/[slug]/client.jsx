@@ -1,24 +1,32 @@
 "use client";
 
-import { fetchCrew } from "@/helper/crewHelpers";
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
+import { useUIStore } from "@/stores/UIStore";
+import { fetchCrew } from "@/helper/crewHelpers";
 import { Loading } from "@/components/loaders/Loading";
-import Title from "@/components/ui/Title";
 import Link from "next/link";
+import Title from "@/components/ui/Title";
 import NewFile from "@/components/NewFile";
 import Button from "@/components/ui/Button";
 
 const Client = ({ crew_id }) => {
   const [crewData, setCrewData] = useState(null);
 
+  const { setIsUseLoading } = useUIStore();
+
   useEffect(() => {
     const getCrewData = async () => {
+      setIsUseLoading(true);
       try {
         const result = await fetchCrew(crew_id);
         setCrewData(result.result[0]);
       } catch (error) {
         console.error("Error fetching crews:", error);
+      } finally {
+        setTimeout(() => {
+          setIsUseLoading(false);
+        }, 500);
       }
     };
 

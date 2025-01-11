@@ -1,13 +1,13 @@
 "use client";
 
-import { Card } from "@/components/crews/Card";
-import Button from "@/components/ui/Button";
-import { fetchCrews } from "@/helper/crewHelpers";
-import Label from "@/components/ui/Label";
-import Link from "next/link";
-import { Loading } from "@/components/loaders/Loading";
 import { useEffect, useState } from "react";
+import { Card } from "@/components/crews/Card";
+import { fetchCrews } from "@/helper/crewHelpers";
 import { NoCrews } from "@/components/empty/NoCrews";
+import { Loading } from "@/components/loaders/Loading";
+import Link from "next/link";
+import Label from "@/components/ui/Label";
+import Button from "@/components/ui/Button";
 
 const Client = () => {
   const [crews, setCrews] = useState(null);
@@ -23,7 +23,7 @@ const Client = () => {
       } finally {
         setTimeout(() => {
           setIsLoading(false);
-        }, 2000);
+        }, 500);
       }
     };
 

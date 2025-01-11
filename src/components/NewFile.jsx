@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
-import { createFile } from "@/helper/fileHelpers";
 import { useRouter } from "next/navigation";
-import MonacoEditor from "@monaco-editor/react";
-import Button from "@/components/ui/Button";
+import { useState, useEffect } from "react";
+import { useUIStore } from "@/stores/UIStore";
+import { createFile } from "@/helper/fileHelpers";
 import Label from "./ui/Label";
 import Modal from "./ui/Modal";
 import Title from "./ui/Title";
 import Input from "./ui/Input";
+import Button from "@/components/ui/Button";
+import MonacoEditor from "@monaco-editor/react";
 
 const NewFile = ({ crew_id }) => {
   const router = useRouter();
@@ -16,6 +17,8 @@ const NewFile = ({ crew_id }) => {
   const [theme, setTheme] = useState("vs-dark");
   const [language, setLanguage] = useState("javascript");
   const [isSaveAs, setIsSaveAs] = useState(false);
+
+  const { setIsUseLoading } = useUIStore();
 
   const handleLanguageChange = (e) => {
     const selectedLang = e.target.value;
@@ -37,9 +40,11 @@ const NewFile = ({ crew_id }) => {
     };
 
     try {
+      setIsUseLoading(true);
       await createFile(crew_id, fileData);
       setFileName("");
       setIsSaveAs(false);
+      setIsUseLoading(false);
       router.push(`/crew/${crew_id}`);
     } catch (error) {
       console.error("Error adding file:", error.message);
@@ -170,7 +175,12 @@ const NewFile = ({ crew_id }) => {
             </div>
             <div className="flex gap-2">
               <Button onClick={() => setIsSaveAs(false)}>Cancel</Button>
-              <Button onClick={createHandler}>Save</Button>
+              <Button
+                disabled={fileName !== "" ? false : true}
+                onClick={createHandler}
+              >
+                Save
+              </Button>
             </div>
           </div>
         </Modal>

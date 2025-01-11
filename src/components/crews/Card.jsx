@@ -1,13 +1,13 @@
-import Modal from "../ui/Modal";
-import { useState, useEffect } from "react";
-import Title from "../ui/Title";
-import Image from "next/image";
-import Input from "../ui/Input";
-import Button from "../ui/Button";
-import Label from "../ui/Label";
-import { useRouter } from "next/navigation";
 import { MdGroups } from "react-icons/md";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Modal from "../ui/Modal";
+import Title from "../ui/Title";
+import Input from "../ui/Input";
+import Label from "../ui/Label";
 import Cookies from "js-cookie";
+import Button from "../ui/Button";
 
 export const Card = ({ ...props }) => {
   const router = useRouter();

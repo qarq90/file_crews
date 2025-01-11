@@ -38,7 +38,7 @@ const Client = ({ crew_id }) => {
       } finally {
         setTimeout(() => {
           setIsLoading(false);
-        }, 2000);
+        }, 500);
       }
     };
 

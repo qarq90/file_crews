@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUIStore } from "@/stores/UIStore";
 import { createCrew } from "@/helper/crewHelpers";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -20,6 +21,8 @@ const Client = () => {
   const [showError, setIsShowError] = useState(false);
   const [nameError, setNameError] = useState(false);
 
+  const { setIsUseLoading } = useUIStore();
+
   const createHandler = async () => {
     if (crewData.crew_name.length > 14) {
       setNameError(true);
@@ -27,9 +30,18 @@ const Client = () => {
     }
 
     if (crewData.crew_name !== "" && crewData.crew_token !== "") {
-      await createCrew(crewData);
-      clearHandler();
-      router.push("/crews");
+      setIsUseLoading(true);
+      try {
+        await createCrew(crewData);
+        clearHandler();
+        router.push("/crews");
+      } catch (error) {
+        console.error("Error creating crew:", error);
+      } finally {
+        setTimeout(() => {
+          setIsUseLoading(false);
+        }, 500);
+      }
     } else {
       setIsShowError(true);
     }

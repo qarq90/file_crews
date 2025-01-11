@@ -15,6 +15,17 @@ body {
   background: var(--background);
 }
 
+.fullLoader {
+  pointer-events: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  z-index: 10000000;
+}
+
 .banterWrapper {
   height: 500px;
   width: 100%;

@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import Button from "./ui/Button";
-import { FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import { FaTimes } from "react-icons/fa";
 import { FaBars } from "react-icons/fa6";
 import { MdGroups } from "react-icons/md";
-import { PiSunglassesFill } from "react-icons/pi";
 import { MdGroupAdd } from "react-icons/md";
+import { PiSunglassesFill } from "react-icons/pi";
+import Link from "next/link";
+import Button from "./ui/Button";
 
 export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
