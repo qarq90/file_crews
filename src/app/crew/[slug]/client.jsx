@@ -78,9 +78,21 @@ const Client = ({ crew_id }) => {
               ) : (
                 <MdGroups size={65} />
               )}
-              <div className="mt-3">
-                <Title>{crewData?.crew_name || "Crew"}</Title>
-              </div>
+              <Title>{crewData?.crew_name || "Crew"}</Title>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <Link
+              className="absolute right-[11.5rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
+              href={`/crew/${crew_id}/edit`}
+            >
+              <Button disabled={true}>Edit Crew</Button>
+            </Link>
+            <div
+              onClick={() => setIsDeleteCrew(true)}
+              className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
+            >
+              <Button disabled={true}>Disband Crew</Button>
             </div>
           </div>
         </div>
@@ -112,9 +124,7 @@ const Client = ({ crew_id }) => {
                 ) : (
                   <MdGroups size={65} />
                 )}
-                <div className="mt-3">
-                  <Title>{crewData?.crew_name || "Crew"}</Title>
-                </div>
+                <Title>{crewData?.crew_name || "Crew"}</Title>
               </div>
             </div>
             <div className="flex gap-3">
@@ -133,7 +143,7 @@ const Client = ({ crew_id }) => {
             </div>
           </div>
           <NoFiles />
-          <div className="mt-10 flex w-full flex-col items-center justify-center gap-4">
+          <div className="mt-4 flex w-full flex-col items-center justify-center gap-4">
             <div className="text-center">
               <Label className="text-sm">
                 Create a new file to share with your crew.
@@ -187,9 +197,7 @@ const Client = ({ crew_id }) => {
               ) : (
                 <MdGroups size={65} />
               )}
-              <div className="mt-3">
-                <Title>{crewData?.crew_name || "Crew"}</Title>
-              </div>
+              <Title>{crewData?.crew_name || "Crew"}</Title>
             </div>
           </div>
           <div className="flex gap-3">
@@ -223,7 +231,7 @@ const Client = ({ crew_id }) => {
             </Link>
           ))}
         </div>
-        <div className="mt-10 flex w-full flex-col items-center justify-center gap-4">
+        <div className="mt-4 flex w-full flex-col items-center justify-center gap-4">
           <div className="text-center">
             <Label className="text-sm">
               Create a new file to share with your crew.

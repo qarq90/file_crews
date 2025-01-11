@@ -6,7 +6,7 @@ export default function Crews() {
   return (
     <BodyWrapper>
       <div className="mt-5">
-        <Title>Join Crew</Title>
+        <Title>Crews</Title>
       </div>
       <Client />
     </BodyWrapper>

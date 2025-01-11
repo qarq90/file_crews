@@ -1,5 +1,5 @@
 import Modal from "../ui/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Title from "../ui/Title";
 import Image from "next/image";
 import Input from "../ui/Input";
@@ -7,6 +7,7 @@ import Button from "../ui/Button";
 import Label from "../ui/Label";
 import { useRouter } from "next/navigation";
 import { MdGroups } from "react-icons/md";
+import Cookies from "js-cookie";
 
 export const Card = ({ ...props }) => {
   const router = useRouter();
@@ -15,20 +16,30 @@ export const Card = ({ ...props }) => {
   const [password, setPassword] = useState("");
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
 
+  useEffect(() => {
+    const session = Cookies.get("authSession");
+    if (session) {
+      setIsOpen(false);
+      router.push(`/crew/${props.crew._id}`);
+    }
+  }, [props.crew._id, router]);
+
   const closeModal = () => {
     setPassword("");
     setIsOpen(false);
   };
+
   const closeErrorModal = () => {
     setPassword("");
     setIsIncorrectPassword(false);
   };
 
   const joinHandler = () => {
-    if (password == props.crew.crew_token) {
+    if (password === props.crew.crew_token) {
       setPassword("");
       setIsOpen(false);
       setIsIncorrectPassword(false);
+      Cookies.set(`${props.crew.crew_name}_Session`, "true", { expires: 3 });
       router.push(`/crew/${props.crew._id}`);
     } else {
       setIsOpen(false);
@@ -45,7 +56,14 @@ export const Card = ({ ...props }) => {
   return (
     <>
       <div
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          const session = Cookies.get(`${props.crew.crew_name}_Session`);
+          if (!session) {
+            setIsOpen(true);
+          } else {
+            router.push(`/crew/${props.crew._id}`);
+          }
+        }}
         className="flex cursor-pointer flex-col items-center justify-center gap-6 rounded-md bg-hover px-4 py-8 text-foreground"
         key={props.id}
       >
