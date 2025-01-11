@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^3.7.4",
+    "@aws-sdk/client-s3": "^3.712.0",
+    "@aws-sdk/s3-request-presigner": "^3.712.0",
     "@monaco-editor/react": "^4.6.0",
     "clsx": "^2.1.1",
+    "crypto-js": "^4.2.0",
     "js-cookie": "^3.0.5",
     "mongoose": "^8.9.3",
     "next": "^15.1.4",

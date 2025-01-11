@@ -11,7 +11,7 @@ const FileSchema = new Schema({
     required: true,
     default: "text/plain",
   },
-  file_data: { type: Buffer },
+  file_data: { type: Buffer || String },
   uploaded_at: { type: Date, default: Date.now },
 });
 

@@ -35,7 +35,7 @@ const NewFile = ({ crew_id }) => {
     const fileData = {
       file_name: fileName,
       file_size: code.length,
-      file_type: "text/plain",
+      file_type: language,
       file_data: Buffer.from(code),
     };
 

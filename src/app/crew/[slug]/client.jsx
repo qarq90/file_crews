@@ -1,19 +1,23 @@
 "use client";
 
 import { MdGroups } from "react-icons/md";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
+import { FaTrashCan } from "react-icons/fa6";
+import { useUIStore } from "@/stores/UIStore";
+import { deleteFile } from "@/helper/fileHelpers";
 import { NoFiles } from "@/components/empty/NoFiles";
 import { fetchCrewFiles } from "@/helper/fileHelpers";
 import { Loading } from "@/components/loaders/Loading";
 import { disbandCrew, fetchCrew } from "@/helper/crewHelpers";
+import clsx from "clsx";
 import Link from "next/link";
+import Image from "next/image";
 import Title from "@/components/ui/Title";
 import Label from "@/components/ui/Label";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
-import Image from "next/image";
 
 const Client = ({ crew_id }) => {
   const router = useRouter();
@@ -21,26 +25,48 @@ const Client = ({ crew_id }) => {
   const [crewData, setCrewData] = useState(null);
   const [crewFiles, setCrewFiles] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [deleteFileState, setDeleteFileState] = useState(null);
   const [isDeleteCrew, setIsDeleteCrew] = useState(false);
+  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+
+  const { setIsUseLoading } = useUIStore();
+
+  const getCrewData = async () => {
+    try {
+      const crew_data = await fetchCrew(crew_id);
+      setCrewData(crew_data.result[0]);
+      const crew_files = await fetchCrewFiles(crew_id);
+      setCrewFiles(crew_files.result);
+    } catch (error) {
+      console.error("Error fetching crew data or files:", error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+  };
 
   useEffect(() => {
-    const getCrewData = async () => {
-      try {
-        const crew_data = await fetchCrew(crew_id);
-        setCrewData(crew_data.result[0]);
-        const crew_files = await fetchCrewFiles(crew_id);
-        setCrewFiles(crew_files.result);
-      } catch (error) {
-        console.error("Error fetching crew data or files:", error);
-      } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
-      }
-    };
-
     getCrewData();
   }, [crew_id]);
+
+  const deletePopUp = (e, file) => {
+    e.preventDefault();
+    setDeleteFileState(file);
+    setIsConfirmDelete(true);
+  };
+
+  const deleteHandler = async (file_id) => {
+    try {
+      setIsUseLoading(true);
+      await deleteFile(crew_id, file_id);
+      setIsConfirmDelete(false);
+      setIsUseLoading(false);
+      getCrewData();
+    } catch (error) {
+      console.error("Error deleting file:", error.message);
+    }
+  };
 
   const disbandHandler = async () => {
     setIsLoading(true);
@@ -150,9 +176,14 @@ const Client = ({ crew_id }) => {
                 Create a new file to share with your crew.
               </Label>
             </div>
-            <Link href={`/create-file/${crew_id}`}>
-              <Button>Create File</Button>
-            </Link>
+            <div className="flex gap-4">
+              <Link href={`/create-file/${crew_id}`}>
+                <Button>Create File</Button>
+              </Link>
+              <Link href={`/upload-file/${crew_id}`}>
+                <Button>Upload File</Button>
+              </Link>
+            </div>
           </div>
         </div>
         {isDeleteCrew && (
@@ -217,20 +248,81 @@ const Client = ({ crew_id }) => {
           </div>
         </div>
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-1 md:mt-8 md:grid-cols-4 md:gap-4">
-          {crewFiles.map((file, index) => (
-            <Link
-              href={`/crew/${crew_id}/file/${file._id}`}
-              key={index}
-              className="text-primary hover:text-primary-dark flex flex-col gap-4 rounded-lg bg-hover p-6 text-xl font-medium shadow-md transition-shadow duration-300 hover:shadow-xl hover:brightness-150 md:p-4"
-            >
-              <Title>{file.file_name}</Title>
-              <div className="text-sm">
-                <p>
-                  Uploaded: {new Date(file.uploaded_at).toLocaleDateString()}
-                </p>
+          {crewFiles.map((file, index) => {
+            const bufferData = file.file_data.data;
+            const decodedString = new TextDecoder().decode(
+              new Uint8Array(bufferData),
+            );
+            const isHttpLink = decodedString.startsWith("http");
+            const fileExtension = file.file_name.split(".").pop();
+            const fileOGName = file.file_name.split(".")[0];
+            return (
+              <div key={index}>
+                <Link
+                  href={
+                    !isHttpLink
+                      ? `/crew/${crew_id}/file/${file._id}`
+                      : decodedString
+                  }
+                  target={!isHttpLink ? "_self" : "_blank"}
+                  className="text-primary hover:text-primary-dark relative flex flex-col gap-4 rounded-lg bg-hover p-6 text-xl font-medium shadow-md transition-shadow duration-300 hover:shadow-xl hover:brightness-150 md:p-4"
+                >
+                  <Title>{fileOGName}</Title>
+                  <div className="flex items-center gap-2">
+                    <Label>
+                      {!isHttpLink
+                        ? `Type: ${file.file_type}`
+                        : `Type: ${fileExtension}`}
+                    </Label>
+                  </div>
+                  <div className="text-sm">
+                    <p>
+                      Uploaded:{" "}
+                      {new Date(file.uploaded_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div
+                    onClick={(e) => deletePopUp(e, file)}
+                    className={clsx(
+                      "rounded-sm bg-foreground p-1 text-background",
+                      !isHttpLink
+                        ? "hidden"
+                        : "absolute bottom-6 right-6 scale-125 md:bottom-2 md:right-2 md:scale-100",
+                    )}
+                  >
+                    <FaTrashCan />
+                  </div>
+                </Link>
+                {isConfirmDelete && (
+                  <Modal
+                    isOpen={isConfirmDelete}
+                    onClose={() => setIsConfirmDelete(false)}
+                  >
+                    <div className="flex flex-col justify-center gap-4 text-center">
+                      <Title>Are you sure?</Title>
+                      <p>
+                        Do you want to delete the file{" "}
+                        <strong>{deleteFileState.file_name}</strong>?
+                      </p>
+                      <div className="mt-2 flex gap-2">
+                        <Button onClick={() => setIsConfirmDelete(false)}>
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            deleteHandler(deleteFileState._id);
+                            setIsConfirmDelete(false);
+                          }}
+                        >
+                          Confirm
+                        </Button>
+                      </div>
+                    </div>
+                  </Modal>
+                )}
               </div>
-            </Link>
-          ))}
+            );
+          })}
         </div>
         <div className="mt-4 flex w-full flex-col items-center justify-center gap-4">
           <div className="text-center">
@@ -238,12 +330,17 @@ const Client = ({ crew_id }) => {
               Create a new file to share with your crew.
             </Label>
           </div>
-          <Link href={`/create-file/${crew_id}`}>
-            <Button>Create File</Button>
-          </Link>
+          <div className="flex gap-4">
+            <Link href={`/create-file/${crew_id}`}>
+              <Button>Create File</Button>
+            </Link>
+            <Link href={`/upload-file/${crew_id}`}>
+              <Button>Upload File</Button>
+            </Link>
+          </div>
         </div>
       </div>
-      {isDeleteCrew && (
+      {/* {isDeleteCrew && (
         <Modal isOpen={isDeleteCrew}>
           <div className="flex flex-col justify-center gap-4 text-center">
             <Title>⚠️</Title>
@@ -258,7 +355,7 @@ const Client = ({ crew_id }) => {
             </div>
           </div>
         </Modal>
-      )}
+      )} */}
     </>
   );
 };
