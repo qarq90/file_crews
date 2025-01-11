@@ -29,9 +29,9 @@ const Client = ({ crew_id }) => {
         const crew_data = await fetchCrew(crew_id);
         setCrewDataNew({
           ...crewDataNew,
-          crew_banner: crew_data.result[0].crew_banner,
-          crew_name: crew_data.result[0].crew_name,
-          crew_token: crew_data.result[0].crew_token,
+          crew_banner: crew_data?.result[0]?.crew_banner,
+          crew_name: crew_data?.result[0]?.crew_name,
+          crew_token: crew_data?.result[0]?.crew_token,
         });
       } catch (error) {
         console.error("Error fetching crew data:", error);
@@ -45,10 +45,9 @@ const Client = ({ crew_id }) => {
     getCrewData();
   }, [crew_id]);
 
-  const createHandler = async () => {
+  const updateHandler = async () => {
     if (crewDataNew.crew_name !== "" || crewDataNew.crew_token !== "") {
-      console.log(crewDataNew);
-      await updateCrew(crewDataNew);
+      await updateCrew(crew_id, crewDataNew);
       router.push("/crews");
     } else {
       setIsShowError(true);
@@ -149,7 +148,7 @@ const Client = ({ crew_id }) => {
           </div>
           <div className="mt-2 flex justify-between gap-2">
             <Button onClick={clearHandler}>Clear</Button>
-            <Button onClick={createHandler}>Update</Button>
+            <Button onClick={updateHandler}>Update</Button>
           </div>
         </div>
       </div>

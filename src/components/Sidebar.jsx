@@ -19,10 +19,10 @@ export const Sidebar = () => {
   return (
     <>
       <Button
-        className="absolute left-4 top-5 z-50 flex items-center justify-center rounded-md bg-hover p-2 text-foreground md:hidden"
+        className="absolute left-4 top-5 z-50 flex items-center justify-center rounded-md bg-hover p-3 text-foreground md:hidden"
         onClick={toggleSidebar}
       >
-        {!isOpen ? <FaBars size={28} /> : <FaTimes size={28} />}
+        {!isOpen ? <FaBars size={22} /> : <FaTimes size={22} />}
       </Button>
 
       <div

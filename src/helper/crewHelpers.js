@@ -39,7 +39,7 @@ export async function fetchCrew(crewId) {
   }
 }
 
-export async function updateCrew(crewData, crewId) {
+export async function updateCrew(crewId, crewData) {
   try {
     const response = await fetch("/api/post/crews/update-crew", {
       method: "POST",

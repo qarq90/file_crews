@@ -198,7 +198,7 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
           <div className="flex flex-col justify-center gap-4 text-center">
             <Title>Are you sure?</Title>
             <p>
-              Do you want to save the file as <strong>{fileName}</strong>?
+              Do you want to save <strong>{fileName}</strong>?
             </p>
             <div className="flex gap-2">
               <Button onClick={() => setIsConfirmSave(false)}>Cancel</Button>

@@ -6,16 +6,19 @@ export const POST = async (request) => {
   try {
     const { crewId, crewData } = await request.json();
 
+    console.log("Crew ID: ", crewId);
+    console.log(crewData);
+
     await connection();
 
     const result = await Crew.findOneAndUpdate(
-      { crew_id: crewId },
+      { _id: crewId },
       {
         crew_name: crewData.crew_name,
         crew_token: crewData.crew_token,
         crew_banner: {
-          name: crewData.crew_banner.name,
-          base64: crewData.crew_banner.base64,
+          name: crewData?.crew_banner?.name,
+          base64: crewData?.crew_banner?.base64,
         },
       },
       { new: true, upsert: false },

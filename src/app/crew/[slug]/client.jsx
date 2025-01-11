@@ -12,7 +12,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { NoFiles } from "@/components/empty/NoFiles";
 import Modal from "@/components/ui/Modal";
 import { useRouter } from "next/navigation";
-
+import { MdGroups } from "react-icons/md";
+import Image from "next/image";
 const Client = ({ crew_id }) => {
   const router = useRouter();
 
@@ -56,15 +57,31 @@ const Client = ({ crew_id }) => {
 
   if (isLoading)
     return (
-      <div className="mt-8 md:mt-5">
-        <div className="flex justify-between gap-4">
-          <div className="flex gap-4">
-            <Link href={`/crews`}>
-              <Button>
-                <FaArrowLeft />
-              </Button>
+      <div className="mt-5">
+        <div className="flex h-12 justify-between gap-4">
+          <div className="flex h-full flex-col items-center gap-4 md:flex-row">
+            <Link
+              href={`/crews`}
+              className="fixed bottom-5 left-5 flex h-12 items-center justify-center gap-2 rounded-md bg-foreground px-4 py-2 text-xl text-background transition duration-200 ease-in-out hover:opacity-85 disabled:opacity-50 md:relative md:bottom-auto md:left-0 md:right-auto md:top-0 md:mt-0 md:transform-none"
+            >
+              <FaArrowLeft />
             </Link>
-            <Title>{crewData?.crew_name || "Crew"}</Title>
+            <div className="flex w-[22.5rem] items-center justify-center gap-4 rounded-lg bg-hover p-4 sm:justify-center md:justify-start md:bg-transparent md:p-0">
+              {crewData?.crew_banner?.base64 ? (
+                <Image
+                  src={crewData.crew_banner.base64}
+                  className="h-12 w-12 rounded-full object-cover"
+                  alt="crew_banner"
+                  width={75}
+                  height={75}
+                />
+              ) : (
+                <MdGroups size={65} />
+              )}
+              <div className="mt-3">
+                <Title>{crewData?.crew_name || "Crew"}</Title>
+              </div>
+            </div>
           </div>
         </div>
         <Loading />
@@ -74,15 +91,31 @@ const Client = ({ crew_id }) => {
   if (!crewFiles || crewFiles.length === 0) {
     return (
       <>
-        <div className="mt-8 md:mt-5">
-          <div className="flex justify-between gap-4">
-            <div className="flex gap-4">
-              <Link href={`/crews`}>
-                <Button>
-                  <FaArrowLeft />
-                </Button>
+        <div className="mt-5">
+          <div className="flex h-12 justify-between gap-4">
+            <div className="flex h-full flex-col items-center gap-4 md:flex-row">
+              <Link
+                href={`/crews`}
+                className="fixed bottom-5 left-5 flex h-12 items-center justify-center gap-2 rounded-md bg-foreground px-4 py-2 text-xl text-background transition duration-200 ease-in-out hover:opacity-85 disabled:opacity-50 md:relative md:bottom-auto md:left-0 md:right-auto md:top-0 md:mt-0 md:transform-none"
+              >
+                <FaArrowLeft />
               </Link>
-              <Title>{crewData?.crew_name || "Crew"}</Title>
+              <div className="flex w-[22.5rem] items-center justify-center gap-4 rounded-lg bg-hover p-4 md:justify-start md:bg-transparent md:p-0">
+                {crewData?.crew_banner?.base64 ? (
+                  <Image
+                    src={crewData.crew_banner.base64}
+                    className="h-12 w-12 rounded-full object-cover"
+                    alt="crew_banner"
+                    width={75}
+                    height={75}
+                  />
+                ) : (
+                  <MdGroups size={65} />
+                )}
+                <div className="mt-3">
+                  <Title>{crewData?.crew_name || "Crew"}</Title>
+                </div>
+              </div>
             </div>
             <div className="flex gap-3">
               <Link
@@ -100,7 +133,7 @@ const Client = ({ crew_id }) => {
             </div>
           </div>
           <NoFiles />
-          <div className="mt-4 flex w-full flex-col items-center justify-center gap-4">
+          <div className="mt-10 flex w-full flex-col items-center justify-center gap-4">
             <div className="text-center">
               <Label className="text-sm">
                 Create a new file to share with your crew.
@@ -133,15 +166,31 @@ const Client = ({ crew_id }) => {
 
   return (
     <>
-      <div className="mt-8 md:mt-5">
-        <div className="flex justify-between gap-4">
-          <div className="flex gap-4">
-            <Link href={`/crews`}>
-              <Button>
-                <FaArrowLeft />
-              </Button>
+      <div className="mt-5">
+        <div className="flex h-12 justify-between gap-4">
+          <div className="flex h-full flex-col items-center gap-4 md:flex-row">
+            <Link
+              href={`/crews`}
+              className="fixed bottom-5 left-5 flex h-12 items-center justify-center gap-2 rounded-md bg-foreground px-4 py-2 text-xl text-background transition duration-200 ease-in-out hover:opacity-85 disabled:opacity-50 md:relative md:bottom-auto md:left-0 md:right-auto md:top-0 md:mt-0 md:transform-none"
+            >
+              <FaArrowLeft />
             </Link>
-            <Title>{crewData?.crew_name || "Crew"}</Title>
+            <div className="flex w-[22.5rem] items-center justify-center gap-4 rounded-lg bg-hover p-4 md:justify-start md:bg-transparent md:p-0">
+              {crewData?.crew_banner?.base64 ? (
+                <Image
+                  src={crewData.crew_banner.base64}
+                  className="h-12 w-12 rounded-full object-cover"
+                  alt="crew_banner"
+                  width={75}
+                  height={75}
+                />
+              ) : (
+                <MdGroups size={65} />
+              )}
+              <div className="mt-3">
+                <Title>{crewData?.crew_name || "Crew"}</Title>
+              </div>
+            </div>
           </div>
           <div className="flex gap-3">
             <Link
@@ -158,12 +207,12 @@ const Client = ({ crew_id }) => {
             </div>
           </div>
         </div>
-        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-1 md:mt-8 md:grid-cols-4 md:gap-4">
           {crewFiles.map((file, index) => (
             <Link
               href={`/crew/${crew_id}/file/${file._id}`}
               key={index}
-              className="text-primary hover:text-primary-dark mb-3 flex flex-col gap-4 rounded-lg bg-hover p-6 text-xl font-medium shadow-md transition-shadow duration-300 hover:shadow-xl hover:brightness-150 md:p-4"
+              className="text-primary hover:text-primary-dark flex flex-col gap-4 rounded-lg bg-hover p-6 text-xl font-medium shadow-md transition-shadow duration-300 hover:shadow-xl hover:brightness-150 md:p-4"
             >
               <Title>{file.file_name}</Title>
               <div className="text-sm">
@@ -174,7 +223,7 @@ const Client = ({ crew_id }) => {
             </Link>
           ))}
         </div>
-        <div className="mt-4 flex w-full flex-col items-center justify-center gap-4">
+        <div className="mt-10 flex w-full flex-col items-center justify-center gap-4">
           <div className="text-center">
             <Label className="text-sm">
               Create a new file to share with your crew.

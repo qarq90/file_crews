@@ -18,9 +18,15 @@ const Client = () => {
     crew_banner: "",
   });
   const [showError, setIsShowError] = useState(false);
+  const [nameError, setNameError] = useState(false);
 
   const createHandler = async () => {
-    if (crewData.crew_name !== "" || crewData.crew_token !== "") {
+    if (crewData.crew_name.length > 14) {
+      setNameError(true);
+      return;
+    }
+
+    if (crewData.crew_name !== "" && crewData.crew_token !== "") {
       await createCrew(crewData);
       clearHandler();
       router.push("/crews");
@@ -110,6 +116,22 @@ const Client = () => {
             </div>
             <div className="flex">
               <Button onClick={() => setIsShowError(false)}>Close</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
+      {nameError && (
+        <Modal isOpen={nameError}>
+          <div className="flex flex-col justify-center gap-4 text-center">
+            <Title>⚠️</Title>
+            <div className="text-center">
+              <Label>
+                The crew name is too long. Please make sure it is 14 characters
+                or fewer.
+              </Label>
+            </div>
+            <div className="flex">
+              <Button onClick={() => setNameError(false)}>Close</Button>
             </div>
           </div>
         </Modal>

@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import { MdGroups } from "react-icons/md";
 
 export const Card = ({ ...props }) => {
-  console.log(props.crew.crew_token);
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -54,7 +53,7 @@ export const Card = ({ ...props }) => {
           {props?.crew?.crew_banner?.base64 ? (
             <Image
               src={props.crew.crew_banner.base64}
-              className="h-28 w-28 rounded-full"
+              className="h-28 w-28 rounded-full object-cover"
               alt="crew_banner"
               width={100}
               height={100}
