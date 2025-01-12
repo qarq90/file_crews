@@ -39,7 +39,9 @@ export const Card = ({ ...props }) => {
         setPassword("");
         setIsOpen(false);
         setIsIncorrectPassword(false);
-        Cookies.set(`${props.crew.crew_name}_Session`, "true", { expires: 3 });
+        Cookies.set(`${props.crew.crew_name}_Session`, "true", {
+          expires: 30 / 1440,
+        });
         router.push(`/crew/${props.crew._id}`);
       } else {
         setIsOpen(false);
