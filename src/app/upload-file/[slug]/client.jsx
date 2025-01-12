@@ -33,7 +33,7 @@ const Client = ({ crew_id }) => {
     getCrewData().then(() => null);
   }, []);
 
-  if (!crewData) return <Loading />;
+  if (!crewData) return;
 
   return (
     <>
