@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useUIStore } from "@/stores/UIStore";
 import { fetchCrew } from "@/actions/crewActions";
-import { Loading } from "@/components/loaders/Loading";
 import Link from "next/link";
 import Title from "@/components/ui/Title";
 import NewFile from "@/components/NewFile";
@@ -13,7 +12,7 @@ import Button from "@/components/ui/Button";
 const Client = ({ crew_id }) => {
   const [crewData, setCrewData] = useState(null);
 
-  const { setIsUseLoading } = useUIStore();
+  const { setIsUseLoading, isUseLoading } = useUIStore();
 
   useEffect(() => {
     const getCrewData = async () => {
@@ -33,8 +32,7 @@ const Client = ({ crew_id }) => {
     getCrewData().then(() => null);
   }, []);
 
-  if (!crewData) return <Loading />;
-
+  if (!crewData || isUseLoading) return;
   return (
     <>
       <div className="mt-5">

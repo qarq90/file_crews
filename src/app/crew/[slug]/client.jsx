@@ -26,7 +26,7 @@ const Client = ({ crew_id }) => {
   const [crewData, setCrewData] = useState(null);
   const [crewFiles, setCrewFiles] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isDeleteCrew, setIsDeleteCrew] = useState(false);
+  // const [isDeleteCrew, setIsDeleteCrew] = useState(false);
   const [isEraseEvidence, setIsEraseEvidence] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
 
@@ -75,19 +75,19 @@ const Client = ({ crew_id }) => {
     }
   };
 
-  const disbandHandler = async () => {
-    setIsLoading(true);
-    try {
-      await disbandCrew(crew_id);
-      router.push(`/crews`);
-    } catch (error) {
-      console.error("Error disbanding crew data or files:", error);
-    } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
-    }
-  };
+  // const disbandHandler = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     await disbandCrew(crew_id);
+  //     router.push(`/crews`);
+  //   } catch (error) {
+  //     console.error("Error disbanding crew data or files:", error);
+  //   } finally {
+  //     setTimeout(() => {
+  //       setIsLoading(false);
+  //     }, 2000);
+  //   }
+  // };
 
   const evidenceHandler = async () => {
     setIsLoading(true);
