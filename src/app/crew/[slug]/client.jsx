@@ -48,19 +48,24 @@ const Client = ({ crew_id }) => {
     }
   };
 
-  useEffect(() => {
+  const cookieHandler = () => {
     const cookieName = `${crewData.crew_name}_Session`;
-
     const existingCookie = Cookies.get(cookieName);
 
     if (!existingCookie) {
       router.push(`/crews`);
     }
-  }, [crewData]);
+  };
 
   useEffect(() => {
     getCrewData();
   }, [crew_id]);
+
+  useEffect(() => {
+    if (crewData) {
+      cookieHandler();
+    }
+  }, [crewData]);
 
   const deletePopUp = (e, file) => {
     e.preventDefault();
