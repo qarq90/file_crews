@@ -141,7 +141,7 @@ const Client = ({ crew_id }) => {
               onClick={() => setIsEraseEvidence(true)}
               className="absolute right-[9.25rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
             >
-              <Button disabled={true}>Erase Evidence</Button>
+              <Button disabled={true}>Log Out</Button>
             </div>
           </div>
         </div>
@@ -187,7 +187,7 @@ const Client = ({ crew_id }) => {
                 onClick={() => setIsEraseEvidence(true)}
                 className="absolute right-[9.25rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
               >
-                <Button>Erase Evidence</Button>
+                <Button>Log Out</Button>
               </div>
             </div>
           </div>
@@ -229,14 +229,16 @@ const Client = ({ crew_id }) => {
             <div className="flex flex-col justify-center gap-4 text-center">
               <Title>⚠️</Title>
               <div className="text-center">
-                <Label>You're about to erase all traces of this crew.</Label>
+                <Label>
+                  Are you sure you want to <strong>log out</strong>?
+                </Label>
                 <br />
               </div>
               <div className="flex gap-2">
                 <Button onClick={() => setIsEraseEvidence(false)}>
-                  Walk Away
+                  Cancel
                 </Button>
-                <Button onClick={evidenceHandler}>Do it</Button>
+                <Button onClick={evidenceHandler}>Log Out</Button>
               </div>
             </div>
           </Modal>
@@ -279,10 +281,10 @@ const Client = ({ crew_id }) => {
               <Button>Edit Crew</Button>
             </Link>
             <div
-              onClick={() => setIsDeleteCrew(true)}
+              onClick={() => setIsEraseEvidence(true)}
               className="absolute right-[9.25rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
             >
-              <Button>Erase Evidence</Button>
+              <Button>Log Out</Button>
             </div>
           </div>
         </div>
@@ -400,14 +402,14 @@ const Client = ({ crew_id }) => {
           <div className="flex flex-col justify-center gap-4 text-center">
             <Title>⚠️</Title>
             <div className="text-center">
-              <Label>You're about to erase all traces of this crew.</Label>
+              <Label>
+                Are you sure you want to <strong>log out</strong>?
+              </Label>
               <br />
             </div>
             <div className="flex gap-2">
-              <Button onClick={() => setIsEraseEvidence(false)}>
-                Walk Away
-              </Button>
-              <Button onClick={evidenceHandler}>Do it</Button>
+              <Button onClick={() => setIsEraseEvidence(false)}>Cancel</Button>
+              <Button onClick={evidenceHandler}>Log Out</Button>
             </div>
           </div>
         </Modal>
