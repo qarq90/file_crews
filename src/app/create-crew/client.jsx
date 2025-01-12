@@ -9,6 +9,7 @@ import Input from "@/components/ui/Input";
 import Label from "@/components/ui/Label";
 import Modal from "@/components/ui/Modal";
 import Title from "@/components/ui/Title";
+import CryptoJS from "crypto-js";
 
 const Client = () => {
   const router = useRouter();
@@ -32,8 +33,17 @@ const Client = () => {
     if (crewData.crew_name !== "" && crewData.crew_token !== "") {
       setIsUseLoading(true);
       try {
-        await createCrew(crewData);
+        const encryptedToken = CryptoJS.AES.encrypt(
+          crewData.crew_token,
+          process.env.NEXT_PUBLIC_ENCRYPTION_KEY,
+        ).toString();
+
+        const updatedCrewData = { ...crewData, crew_token: encryptedToken };
+
+        await createCrew(updatedCrewData);
+
         clearHandler();
+
         router.push("/crews");
       } catch (error) {
         console.error("Error creating crew:", error);
@@ -92,6 +102,7 @@ const Client = () => {
         <div className="flex flex-col gap-2">
           <Label>Crew Password</Label>
           <Input
+            type="password"
             value={crewData.crew_token}
             onChange={(e) =>
               setCrewData({ ...crewData, crew_token: e.target.value })

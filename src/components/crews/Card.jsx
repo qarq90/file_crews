@@ -1,5 +1,5 @@
 import { MdGroups } from "react-icons/md";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Modal from "../ui/Modal";
@@ -7,6 +7,7 @@ import Title from "../ui/Title";
 import Input from "../ui/Input";
 import Label from "../ui/Label";
 import Cookies from "js-cookie";
+import CryptoJS from "crypto-js";
 import Button from "../ui/Button";
 
 export const Card = ({ ...props }) => {
@@ -15,14 +16,6 @@ export const Card = ({ ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
-
-  useEffect(() => {
-    const session = Cookies.get("authSession");
-    if (session) {
-      setIsOpen(false);
-      router.push(`/crew/${props.crew._id}`);
-    }
-  }, [props.crew._id, router]);
 
   const closeModal = () => {
     setPassword("");
@@ -35,13 +28,25 @@ export const Card = ({ ...props }) => {
   };
 
   const joinHandler = () => {
-    if (password === props.crew.crew_token) {
-      setPassword("");
-      setIsOpen(false);
-      setIsIncorrectPassword(false);
-      Cookies.set(`${props.crew.crew_name}_Session`, "true", { expires: 3 });
-      router.push(`/crew/${props.crew._id}`);
-    } else {
+    try {
+      const decryptedTokenBytes = CryptoJS.AES.decrypt(
+        props.crew.crew_token,
+        process.env.NEXT_PUBLIC_ENCRYPTION_KEY,
+      );
+      const decryptedToken = decryptedTokenBytes.toString(CryptoJS.enc.Utf8);
+
+      if (password === decryptedToken) {
+        setPassword("");
+        setIsOpen(false);
+        setIsIncorrectPassword(false);
+        Cookies.set(`${props.crew.crew_name}_Session`, "true", { expires: 3 });
+        router.push(`/crew/${props.crew._id}`);
+      } else {
+        setIsOpen(false);
+        setIsIncorrectPassword(true);
+      }
+    } catch (error) {
+      console.error("Error decrypting token:", error);
       setIsOpen(false);
       setIsIncorrectPassword(true);
     }

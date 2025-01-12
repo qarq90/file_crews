@@ -13,7 +13,7 @@ import InputFile from "@/components/InputFile";
 const Client = ({ crew_id }) => {
   const [crewData, setCrewData] = useState(null);
 
-  const { setIsUseLoading } = useUIStore();
+  const { isUseLoading, setIsUseLoading } = useUIStore();
 
   useEffect(() => {
     const getCrewData = async () => {
@@ -33,7 +33,7 @@ const Client = ({ crew_id }) => {
     getCrewData().then(() => null);
   }, []);
 
-  if (!crewData) return;
+  if (!crewData || isUseLoading) return;
 
   return (
     <>

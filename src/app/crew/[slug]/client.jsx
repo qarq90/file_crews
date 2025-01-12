@@ -14,6 +14,7 @@ import { disbandCrew, fetchCrew } from "@/actions/crewActions";
 import clsx from "clsx";
 import Link from "next/link";
 import Image from "next/image";
+import Cookies from "js-cookie";
 import Title from "@/components/ui/Title";
 import Label from "@/components/ui/Label";
 import Modal from "@/components/ui/Modal";
@@ -25,8 +26,8 @@ const Client = ({ crew_id }) => {
   const [crewData, setCrewData] = useState(null);
   const [crewFiles, setCrewFiles] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [deleteFileState, setDeleteFileState] = useState(null);
   const [isDeleteCrew, setIsDeleteCrew] = useState(false);
+  const [isEraseEvidence, setIsEraseEvidence] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
 
   const { setIsUseLoading } = useUIStore();
@@ -88,6 +89,20 @@ const Client = ({ crew_id }) => {
     }
   };
 
+  const evidenceHandler = async () => {
+    setIsLoading(true);
+    try {
+      Cookies.remove(`${crewData.crew_name}_Session`);
+      router.push(`/crews`);
+    } catch (error) {
+      console.error("Error disbanding crew data or files:", error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    }
+  };
+
   if (isLoading)
     return (
       <div className="mt-5">
@@ -121,12 +136,12 @@ const Client = ({ crew_id }) => {
             >
               <Button disabled={true}>Edit Crew</Button>
             </Link>
-            {/* <div
-              onClick={() => setIsDeleteCrew(true)}
-              className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
+            <div
+              onClick={() => setIsEraseEvidence(true)}
+              className="absolute right-[9.25rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
             >
-              <Button disabled={true}>Disband Crew</Button>
-            </div> */}
+              <Button disabled={true}>Erase Evidence</Button>
+            </div>
           </div>
         </div>
         <Loading />
@@ -167,12 +182,12 @@ const Client = ({ crew_id }) => {
               >
                 <Button>Edit Crew</Button>
               </Link>
-              {/* <div
-                onClick={() => setIsDeleteCrew(true)}
-                className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
+              <div
+                onClick={() => setIsEraseEvidence(true)}
+                className="absolute right-[9.25rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
               >
-                <Button>Disband Crew</Button>
-              </div> */}
+                <Button>Erase Evidence</Button>
+              </div>
             </div>
           </div>
           <NoFiles />
@@ -192,7 +207,7 @@ const Client = ({ crew_id }) => {
             </div>
           </div>
         </div>
-        {isDeleteCrew && (
+        {/* {isDeleteCrew && (
           <Modal isOpen={isDeleteCrew}>
             <div className="flex flex-col justify-center gap-4 text-center">
               <Title>⚠️</Title>
@@ -202,8 +217,25 @@ const Client = ({ crew_id }) => {
                 <Label>This action is not reversible.</Label>
               </div>
               <div className="flex gap-2">
-                <Button onClick={() => setIsDeleteCrew(false)}>Close</Button>
+                <Button onClick={() => setIsEraseEvidence(false)}>Close</Button>
                 <Button onClick={disbandHandler}>Disband</Button>
+              </div>
+            </div>
+          </Modal>
+        )} */}
+        {isEraseEvidence && (
+          <Modal isOpen={isEraseEvidence}>
+            <div className="flex flex-col justify-center gap-4 text-center">
+              <Title>⚠️</Title>
+              <div className="text-center">
+                <Label>You're about to erase all traces of this crew.</Label>
+                <br />
+              </div>
+              <div className="flex gap-2">
+                <Button onClick={() => setIsEraseEvidence(false)}>
+                  Walk Away
+                </Button>
+                <Button onClick={evidenceHandler}>Do it</Button>
               </div>
             </div>
           </Modal>
@@ -245,12 +277,12 @@ const Client = ({ crew_id }) => {
             >
               <Button>Edit Crew</Button>
             </Link>
-            {/* <div
+            <div
               onClick={() => setIsDeleteCrew(true)}
-              className="absolute right-4 top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
+              className="absolute right-[9.25rem] top-5 md:relative md:left-0 md:top-0 md:flex md:justify-center"
             >
-              <Button>Disband Crew</Button>
-            </div> */}
+              <Button>Erase Evidence</Button>
+            </div>
           </div>
         </div>
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-1 md:mt-8 md:grid-cols-4 md:gap-4">
@@ -362,6 +394,23 @@ const Client = ({ crew_id }) => {
           </div>
         </Modal>
       )} */}
+      {isEraseEvidence && (
+        <Modal isOpen={isEraseEvidence}>
+          <div className="flex flex-col justify-center gap-4 text-center">
+            <Title>⚠️</Title>
+            <div className="text-center">
+              <Label>You're about to erase all traces of this crew.</Label>
+              <br />
+            </div>
+            <div className="flex gap-2">
+              <Button onClick={() => setIsEraseEvidence(false)}>
+                Walk Away
+              </Button>
+              <Button onClick={evidenceHandler}>Do it</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };
