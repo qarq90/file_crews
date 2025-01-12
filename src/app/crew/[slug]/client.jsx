@@ -27,6 +27,7 @@ const Client = ({ crew_id }) => {
   const [crewFiles, setCrewFiles] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   // const [isDeleteCrew, setIsDeleteCrew] = useState(false);
+  const [deleteFileState, setDeleteFileState] = useState(null);
   const [isEraseEvidence, setIsEraseEvidence] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
 
