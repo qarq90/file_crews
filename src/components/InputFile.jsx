@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUIStore } from "@/stores/UIStore";
-import { createFile } from "@/helper/fileHelpers";
-import { uploadFileToS3 } from "@/helper/addHelpers";
+import { createFile, uploadFileToS3 } from "@/actions/fileActions";
 import Button from "./ui/Button";
 import Title from "@/components/ui/Title";
 

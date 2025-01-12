@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { fetchFile } from "@/helper/fileHelpers";
+import { fetchFile } from "@/actions/fileActions";
 import { Loading } from "@/components/loaders/Loading";
 import Link from "next/link";
 import Title from "@/components/ui/Title";

@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useUIStore } from "@/stores/UIStore";
-import { createFile } from "@/helper/fileHelpers";
+import { createFile } from "@/actions/fileActions";
 import Label from "./ui/Label";
 import Modal from "./ui/Modal";
 import Title from "./ui/Title";
@@ -78,7 +78,7 @@ const NewFile = ({ crew_id }) => {
         <div className="flex flex-col gap-4 md:flex-row">
           <MonacoEditor
             value={code}
-            height="600px"
+            height="500px"
             theme={theme}
             language={language}
             onChange={handleChange}

@@ -19,10 +19,9 @@ export default function RootLayout({ children }) {
         <div
           className={clsx(
             "fixed left-0 top-0 z-[1000] h-screen w-screen bg-black transition-opacity duration-300",
-            isUseLoading ? "visible opacity-50" : "invisible opacity-0",
+            isUseLoading ? "visible opacity-20" : "invisible opacity-0",
           )}
         ></div>
-
         {isUseLoading && <FullLoader />}
       </body>
     </html>

@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaTrashCan } from "react-icons/fa6";
 import { useUIStore } from "@/stores/UIStore";
-import { deleteFile } from "@/helper/fileHelpers";
+import { deleteFile } from "@/actions/fileActions";
 import { NoFiles } from "@/components/empty/NoFiles";
-import { fetchCrewFiles } from "@/helper/fileHelpers";
+import { fetchCrewFiles } from "@/actions/fileActions";
 import { Loading } from "@/components/loaders/Loading";
-import { disbandCrew, fetchCrew } from "@/helper/crewHelpers";
+import { disbandCrew, fetchCrew } from "@/actions/crewActions";
 import clsx from "clsx";
 import Link from "next/link";
 import Image from "next/image";
@@ -59,10 +59,16 @@ const Client = ({ crew_id }) => {
   const deleteHandler = async (file_id) => {
     try {
       setIsUseLoading(true);
-      await deleteFile(crew_id, file_id);
+      const bufferData = deleteFileState.file_data.data;
+      const decodedString = new TextDecoder().decode(
+        new Uint8Array(bufferData),
+      );
+      const isHttpLink = decodedString.startsWith("http");
+      const key = decodedString.split("/").pop();
+      await deleteFile(crew_id, file_id, key, isHttpLink);
       setIsConfirmDelete(false);
-      setIsUseLoading(false);
       getCrewData();
+      setIsUseLoading(false);
     } catch (error) {
       console.error("Error deleting file:", error.message);
     }

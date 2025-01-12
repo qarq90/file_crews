@@ -3,7 +3,7 @@
 import Title from "@/components/ui/Title";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import { fetchCrew, updateCrew } from "@/helper/crewHelpers";
+import { fetchCrew, updateCrew } from "@/actions/crewActions";
 import { useEffect, useState } from "react";
 import { Loading } from "@/components/loaders/Loading";
 import { FaArrowLeft } from "react-icons/fa";
