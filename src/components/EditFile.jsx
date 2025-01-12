@@ -71,7 +71,7 @@ const EditFile = ({ crew_id, file_id, fileName, code, setCode }) => {
     const fileData = {
       file_name: newFileName,
       file_size: code.length,
-      file_type: "text/plain",
+      file_type: language,
       file_data: Buffer.from(code).toString("base64"),
     };
     try {
