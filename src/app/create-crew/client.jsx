@@ -48,9 +48,7 @@ const Client = () => {
       } catch (error) {
         console.error("Error creating crew:", error);
       } finally {
-        setTimeout(() => {
-          setIsUseLoading(false);
-        }, 500);
+        setIsUseLoading(false);
       }
     } else {
       setIsShowError(true);
