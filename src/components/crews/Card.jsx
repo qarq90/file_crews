@@ -102,6 +102,7 @@ export const Card = ({ ...props }) => {
             </Label>
             <Input
               value={password}
+              type={"password"}
               placeholder="Enter crew password"
               onKeyDown={handleKeyDown}
               onChange={(e) => setPassword(e.target.value)}

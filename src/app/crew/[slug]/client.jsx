@@ -30,6 +30,7 @@ const Client = ({ crew_id }) => {
   const [deleteFileState, setDeleteFileState] = useState(null);
   const [isEraseEvidence, setIsEraseEvidence] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [isLimitReached, setIsLimitReached] = useState(false);
 
   const { setIsUseLoading } = useUIStore();
 
@@ -54,6 +55,15 @@ const Client = ({ crew_id }) => {
 
     if (!existingCookie) {
       router.push(`/crews`);
+    }
+  };
+
+  const createHandler = (link) => {
+    if (crewFiles.length === 10) {
+      setIsLimitReached(true);
+      return;
+    } else {
+      router.push(link);
     }
   };
 
@@ -213,14 +223,17 @@ const Client = ({ crew_id }) => {
                 Create a new file to share with your crew.
               </Label>
             </div>
-            <div className="flex gap-4">
-              <Link href={`/create-file/${crew_id}`}>
-                <Button>Create File</Button>
-              </Link>
-              <Link href={`/upload-file/${crew_id}`}>
-                <Button>Upload File</Button>
-              </Link>
+            <div className="flex w-full gap-4">
+              <div className="md:w-96" />
+              <Button onClick={() => createHandler(`/create-file/${crew_id}`)}>
+                Create File
+              </Button>
+              <Button onClick={() => createHandler(`/upload-file/${crew_id}`)}>
+                Upload File
+              </Button>
+              <div className="md:w-96" />
             </div>
+            <div className="h-16 w-full" />
           </div>
         </div>
         {/* {isDeleteCrew && (
@@ -303,7 +316,7 @@ const Client = ({ crew_id }) => {
             </div>
           </div>
         </div>
-        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-1 md:mt-8 md:grid-cols-4 md:gap-4">
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-1 md:mt-8 md:grid-cols-4 md:gap-4">
           {crewFiles.map((file, index) => {
             const bufferData = file.file_data.data;
             const decodedString = new TextDecoder().decode(
@@ -386,14 +399,17 @@ const Client = ({ crew_id }) => {
               Create a new file to share with your crew.
             </Label>
           </div>
-          <div className="flex gap-4">
-            <Link href={`/create-file/${crew_id}`}>
-              <Button>Create File</Button>
-            </Link>
-            <Link href={`/upload-file/${crew_id}`}>
-              <Button>Upload File</Button>
-            </Link>
+          <div className="flex w-full gap-4">
+            <div className="md:w-96" />
+            <Button onClick={() => createHandler(`/create-file/${crew_id}`)}>
+              Create File
+            </Button>
+            <Button onClick={() => createHandler(`/upload-file/${crew_id}`)}>
+              Upload File
+            </Button>
+            <div className="md:w-96" />
           </div>
+          <div className="h-16 w-full" />
         </div>
       </div>
       {/* {isDeleteCrew && (
@@ -425,6 +441,20 @@ const Client = ({ crew_id }) => {
             <div className="flex gap-2">
               <Button onClick={() => setIsEraseEvidence(false)}>Cancel</Button>
               <Button onClick={evidenceHandler}>Log Out</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
+      {isLimitReached && (
+        <Modal isOpen={isLimitReached}>
+          <div className="flex flex-col justify-center gap-4 text-center">
+            <Title>Limit Reached</Title>
+            <div className="text-center">
+              <Label>Only 10 files can be stored per crew.</Label>
+              <br />
+            </div>
+            <div className="flex gap-2">
+              <Button onClick={() => setIsLimitReached(false)}>Close</Button>
             </div>
           </div>
         </Modal>

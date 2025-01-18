@@ -11,6 +11,7 @@ import Input from "@/components/ui/Input";
 import Label from "@/components/ui/Label";
 import Modal from "@/components/ui/Modal";
 import { useRouter } from "next/navigation";
+import CryptoJS from "crypto-js";
 
 const Client = ({ crew_id }) => {
   const router = useRouter();
@@ -27,11 +28,16 @@ const Client = ({ crew_id }) => {
     const getCrewData = async () => {
       try {
         const crew_data = await fetchCrew(crew_id);
+        const decryptedTokenBytes = CryptoJS.AES.decrypt(
+          crew_data?.result[0]?.crew_token,
+          process.env.NEXT_PUBLIC_ENCRYPTION_KEY,
+        );
+        const decryptedToken = decryptedTokenBytes.toString(CryptoJS.enc.Utf8);
         setCrewDataNew({
           ...crewDataNew,
           crew_banner: crew_data?.result[0]?.crew_banner,
           crew_name: crew_data?.result[0]?.crew_name,
-          crew_token: crew_data?.result[0]?.crew_token,
+          crew_token: decryptedToken,
         });
       } catch (error) {
         console.error("Error fetching crew data:", error);
