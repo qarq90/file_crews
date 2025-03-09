@@ -48,7 +48,19 @@ const Client = ({ crew_id }) => {
         </div>
         <div className="mt-48 flex w-full justify-center p-4">
           <InputFile
-            accept="application/pdf, image/*, .docx, .zip, .ppt, .pptx, .xls, .xlsx, .rar"
+            accept="
+              application/pdf,
+              image/*,
+              .doc, .docx,
+              .xls, .xlsx,
+              .ppt, .pptx,
+              .txt,
+              .rtf,
+              .jpg, .jpeg, .png, .gif, .svg, .bmp,
+              .mp4, .avi, .mkv, .mov,
+              .mp3, .wav, .aac,
+              .zip, .rar
+            "
             crew_id={crew_id}
           />
         </div>
