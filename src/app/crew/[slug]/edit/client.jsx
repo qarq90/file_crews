@@ -53,7 +53,19 @@ const Client = ({ crew_id }) => {
 
   const updateHandler = async () => {
     if (crewDataNew.crew_name !== "" || crewDataNew.crew_token !== "") {
-      await updateCrew(crew_id, crewDataNew);
+      const encryptedToken = CryptoJS.AES.encrypt(
+        crewDataNew.crew_token,
+        process.env.NEXT_PUBLIC_ENCRYPTION_KEY,
+      ).toString();
+
+      const updatedCrewData = {
+        ...crewDataNew,
+        crew_token: encryptedToken,
+      };
+
+      await updateCrew(crew_id, updatedCrewData);
+
+      setCrewDataNew(updatedCrewData);
       router.push("/crews");
     } else {
       setIsShowError(true);
