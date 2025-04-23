@@ -35,7 +35,7 @@ export const Card = ({ ...props }) => {
       );
       const decryptedToken = decryptedTokenBytes.toString(CryptoJS.enc.Utf8);
 
-      if (password === "oogway") {
+      if (password === decryptedToken) {
         setPassword("");
         setIsOpen(false);
         setIsIncorrectPassword(false);
