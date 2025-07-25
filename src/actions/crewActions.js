@@ -1,27 +1,34 @@
+import pool from "@/lib/connection";
+
 export async function createCrew(crewData) {
   try {
-    const response = await fetch("/api/post/crews/create-crew", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(crewData),
-    });
+    const client = await pool.connect();
+    const result = await client.query(
+      `INSERT INTO crews 
+       (crew_name, crew_token, crew_banner) 
+       VALUES ($1, $2, $3) 
+       RETURNING *`,
+      [crewData.crew_name, crewData.crew_token, crewData.crew_banner?.base64],
+    );
 
-    return await response.json();
-  } catch (err) {
-    console.log(err);
+    client.release();
+    return result.rows[0];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to create crew");
   }
 }
 
 export async function fetchCrews() {
   try {
-    const response = await fetch("/api/get/crews/fetch-crews", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
+    const client = await pool.connect();
+    const result = await client.query(`SELECT * FROM crews`);
 
-    return await response.json();
-  } catch (err) {
-    console.log(err);
+    client.release();
+    return result.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch crew");
   }
 }
 

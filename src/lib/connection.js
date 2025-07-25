@@ -1,18 +1,8 @@
-import mongoose from "mongoose";
+import { Pool } from "@neondatabase/serverless";
 
-export default async function connection() {
-  if (mongoose.connections[0].readyState) {
-    return;
-  }
+const pool = new Pool({
+  connectionString: process.env.NEXT_PUBLIC_NEON_CONNECTION_STRING,
+  ssl: true,
+});
 
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log("Connected to MongoDB");
-  } catch (error) {
-    console.log(error);
-    console.log("Failed to connect to MongoDB");
-    throw error;
-  }
-
-  console.log("MongoDB connection process completed");
-}
+export default pool;

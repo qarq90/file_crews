@@ -17,6 +17,7 @@ const Client = () => {
     const getCrews = async () => {
       try {
         const result = await fetchCrews();
+        console.log(result);
         setCrews(result.result);
       } catch (error) {
         console.error("Error fetching crews:", error);

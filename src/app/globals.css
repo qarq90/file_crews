@@ -5,13 +5,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #111419;
+  --background: #171717;
   --foreground: rgba(129, 212, 216, 0.75);
   --hover: rgba(129, 212, 216, 0.05);
 }
 
 body {
   color: var(--foreground);
+  font-family: "Josefin Sans", sans-serif;
   background: var(--background);
 }
 

@@ -1,15 +1,13 @@
 "use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUIStore } from "@/stores/UIStore";
-import { createCrew } from "@/actions/crewActions";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Label from "@/components/ui/Label";
 import Modal from "@/components/ui/Modal";
 import Title from "@/components/ui/Title";
-import CryptoJS from "crypto-js";
+import { mono_alphabetic_encrypt } from "@/actions/cipher";
 
 const Client = () => {
   const router = useRouter();
@@ -33,22 +31,25 @@ const Client = () => {
     if (crewData.crew_name !== "" && crewData.crew_token !== "") {
       setIsUseLoading(true);
       try {
-        const encryptedToken = CryptoJS.AES.encrypt(
-          crewData.crew_token,
-          process.env.NEXT_PUBLIC_ENCRYPTION_KEY,
-        ).toString();
+        const encryptedToken = mono_alphabetic_encrypt(crewData.crew_token);
 
-        const updatedCrewData = { ...crewData, crew_token: encryptedToken };
+        const updatedCrewData = {
+          ...crewData,
+          crew_token: encryptedToken,
+          crew_banner: "banner_will_come_here",
+        };
 
-        await createCrew(updatedCrewData);
+        console.log(encryptedToken);
 
-        clearHandler();
+        // await createCrew(updatedCrewData);
 
-        router.push("/crews");
+        // clearHandler();
+
+        // router.push("/crews");
       } catch (error) {
         console.error("Error creating crew:", error);
       } finally {
-        setIsUseLoading(false);
+        // setIsUseLoading(false);
       }
     } else {
       setIsShowError(true);

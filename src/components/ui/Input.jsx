@@ -13,7 +13,7 @@ const Input = ({ type = "text", disabled = false, ...props }) => {
   return (
     <>
       {type === "text" && (
-        <div className="flex w-full items-center justify-between rounded-md border border-foreground bg-background px-4 py-2 text-xl outline-none placeholder:opacity-50">
+        <div className="bg-foreground/25 flex w-full items-center justify-between rounded-md bg-neutral-800 px-4 py-2 text-xl outline-none placeholder:opacity-50">
           <input
             id={props.id}
             name={props.name}
@@ -22,14 +22,14 @@ const Input = ({ type = "text", disabled = false, ...props }) => {
             type={type}
             onChange={props.onChange}
             disabled={disabled}
-            className="placeholder:#ccc text-md w-full rounded-md bg-background outline-none placeholder:opacity-30"
+            className="placeholder:#ccc text-md w-full rounded-md bg-neutral-800 outline-none placeholder:opacity-30"
             {...props}
           />
         </div>
       )}
 
       {type === "password" && (
-        <div className="flex w-full items-center justify-between rounded-md border border-foreground bg-background px-4 py-2 text-xl outline-none placeholder:opacity-50">
+        <div className="flex w-full items-center justify-between rounded-md bg-neutral-800 px-4 py-2 text-xl outline-none placeholder:opacity-50">
           <input
             id={props.id}
             name={props.name}
@@ -38,7 +38,7 @@ const Input = ({ type = "text", disabled = false, ...props }) => {
             type={type}
             onChange={props.onChange}
             disabled={disabled}
-            className="placeholder:#ccc text-md w-full rounded-md bg-background outline-none placeholder:opacity-30"
+            className="placeholder:#ccc text-md w-full rounded-md bg-neutral-800 outline-none placeholder:opacity-30"
             {...props}
           />
         </div>

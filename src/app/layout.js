@@ -1,11 +1,11 @@
 "use client";
 
 import "./globals.css";
+import clsx from "clsx";
+import { useUIStore } from "@/stores/UIStore";
 import { Sidebar } from "@/components/Sidebar";
 import { AppWrapper } from "@/components/Wrapper";
-import { useUIStore } from "@/stores/UIStore";
-import clsx from "clsx";
-import FullLoader from "@/components/loaders/Full";
+import { FullLoader } from "@/components/loaders/Full";
 
 export default function RootLayout({ children }) {
   const { isUseLoading } = useUIStore();
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <div
           className={clsx(
             "fixed left-0 top-0 z-[1000] h-screen w-screen bg-black transition-opacity duration-300",
-            isUseLoading ? "visible opacity-20" : "invisible opacity-0",
+            isUseLoading ? "visible opacity-40" : "invisible opacity-0",
           )}
         ></div>
         {isUseLoading && <FullLoader />}

@@ -1,4 +1,4 @@
-const FullLoader = () => {
+export const FullLoader = () => {
   return (
     <>
       <div className="fullLoader">
@@ -17,5 +17,3 @@ const FullLoader = () => {
     </>
   );
 };
-
-export default FullLoader;
