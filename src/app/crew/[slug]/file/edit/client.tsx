@@ -182,6 +182,7 @@ export default function Client({ slug }: EditSlug) {
                 <CodeMirror
                     className="w-4/5"
                     value={code}
+                    width="850px"
                     height="500px"
                     theme={oneDark}
                     extensions={[languageMap[language]]}

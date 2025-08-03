@@ -45,7 +45,7 @@ export default function Client({ slug }: Slug) {
         if (link.startsWith("https://aquamarine-patient-galliform-980.mypinata.cloud/ipfs")) {
             window.open(link, '_blank');
         } else {
-            router.push(`/crew/${crew?.crew_id}/file/${file_id}/edit`)
+            router.push(`/crew/${crew?.crew_id}/file/edit`)
         }
     }
 
