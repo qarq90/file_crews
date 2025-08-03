@@ -1,19 +1,14 @@
 import { BodyWrapper } from "@/components/wrappers";
 import Client from "./client";
 
-interface PageProps {
-    params: {
-        slug: string;
-        id: string;
-    };
-}
-
-export default function CreateFile({ params }: PageProps) {
-    const { slug, id } = params;
-
+export default function CreateFile({
+    params,
+}: {
+    params: { slug: string; id: string };
+}) {
     return (
         <BodyWrapper>
-            <Client slug={slug} id={id} />
+            <Client slug={params.slug} id={params.id} />
         </BodyWrapper>
     );
 }
