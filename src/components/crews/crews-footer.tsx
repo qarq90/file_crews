@@ -10,7 +10,7 @@ export function Footer() {
                     Create a new crew to collaborate and share files effortlessly.
                 </Label>
             </div>
-            <Link href="/create-crew">
+            <Link href="/crews/new">
                 <Button>Create Crew</Button>
             </Link>
         </div>

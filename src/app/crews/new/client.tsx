@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 import { ChangeEvent, useState } from "react"
 import Label from "@/components/ui/label"
 import Input from "@/components/ui/input"
@@ -10,7 +9,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { uploadBanner, createCrew } from "@/functions/crew-functions";
 import { mono_alphabetic_encrypt } from "@/functions/cipher-functions"
 import { useRouter } from "next/navigation"
-import { Processing } from "@/components/loaders/processing"
+import { FullScreenLoading } from "@/components/loaders/full-screen"
 
 export default function Client() {
     const router = useRouter()
@@ -121,7 +120,7 @@ export default function Client() {
         }
     };
 
-    if (creating) return <Processing />
+    if (creating) return <FullScreenLoading />
 
     return (
         <main className="flex flex-col gap-6 w-[425px]">
