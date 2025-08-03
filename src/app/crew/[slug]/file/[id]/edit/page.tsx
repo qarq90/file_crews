@@ -1,7 +1,14 @@
 import { BodyWrapper } from "@/components/wrappers";
 import Client from "./client";
 
-export default function CreateFile({ params }: CrewEditSlug) {
+type PageProps = {
+    params: {
+        slug: string;
+        id: string;
+    };
+};
+
+export default function CreateFile({ params }: PageProps) {
     const { slug, id } = params;
 
     return (
