@@ -57,8 +57,16 @@ const languageNames = {
     json: "JSON",
 };
 
-export default function Client({ slug, id }: EditSlug) {
+type PageProps = {
+    params: {
+        slug: string;
+        id: string;
+    };
+};
+
+export default function Client({ params }: PageProps) {
     const router = useRouter();
+    const { slug, id } = params;
     const { crew, loading } = useCrew(slug as string);
 
     const [language, setLanguage] = useState<LanguageKey>("js");
