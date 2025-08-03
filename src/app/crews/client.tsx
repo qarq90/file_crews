@@ -7,12 +7,13 @@ import Input from "@/components/ui/input";
 import Title from "@/components/ui/title";
 import Button from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Processing } from "@/components/loaders/processing";
 import { mono_alphabetic_encrypt } from "@/functions/cipher-functions";
 import { Footer } from "@/components/crews/crews-footer";
 import { useCrews } from "@/hooks/useCrews";
+import { useSelectedCrew } from "@/stores/useCrew";
 
 export default function Client() {
     const router = useRouter()
@@ -23,11 +24,14 @@ export default function Client() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const { crews, loading } = useCrews();
 
+    const { setSelectedCrewId } = useSelectedCrew()
+
     const handleCrewClick = (crew: CrewType) => {
         const cookieKey = `${selectedCrew?.crew_name}_Session`;
         const isSessionSet = Cookies.get(cookieKey) === "true";
 
         if (isSessionSet) {
+            setSelectedCrewId(selectedCrew?.crew_id?.toString() ?? "")
             router.push(`/crew/${selectedCrew?.crew_id}`)
         } else {
             setSelectedCrew(crew);
@@ -49,6 +53,7 @@ export default function Client() {
         };
 
         if (mono_alphabetic_encrypt(crewPassword) === selectedCrew?.crew_token) {
+            setSelectedCrewId(selectedCrew?.crew_id?.toString() ?? "")
             Cookies.set(`${selectedCrew.crew_name}_Session`, "true", {
                 expires: 30 / 1440,
             });
@@ -61,6 +66,10 @@ export default function Client() {
             return;
         }
     };
+
+    useEffect(() => {
+        setSelectedCrewId("")
+    }, [])
 
     if (loading) return <Processing />
 

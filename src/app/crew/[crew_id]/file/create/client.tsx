@@ -1,65 +1,27 @@
-"use client";
-
+"use client";;
 import { LoadingNav } from "@/components/loaders/loading-nav";
 import { useRouter } from "next/navigation";
-import { Extension } from "@codemirror/state";
 import { useCrew } from "@/hooks/useCrew";
 import { CrewFooter } from "@/components/crew/crew-footer";
 import { CrewNav } from "@/components/crew/crew-nav";
 import { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { oneDark } from "@codemirror/theme-one-dark";
-import { javascript } from "@codemirror/lang-javascript";
-import { python } from "@codemirror/lang-python";
-import { java } from "@codemirror/lang-java";
-import { cpp } from "@codemirror/lang-cpp";
-import { html } from "@codemirror/lang-html";
 import Title from "@/components/ui/title";
 import Modal from "@/components/ui/modal";
-import { css } from "@codemirror/lang-css";
-import { php } from "@codemirror/lang-php";
-import { json } from "@codemirror/lang-json";
 import Label from "@/components/ui/label";
 import Button from "@/components/ui/button";
+import { LanguageKey, languageNames, languageMap } from "@/lib/editor";
 import { generateUUIDv4 } from "@/functions/cipher-functions";
 import { createFileRow } from "@/functions/file-functions";
 import Input from "@/components/ui/input";
+import { useSelectedCrew } from "@/stores/useCrew";
 
-type LanguageKey = "js" | "ts" | "jsx" | "tsx" | "java" | "py" | "c" | "cpp" | "html" | "css" | "php" | "json";
-
-const languageMap: Record<string, Extension> = {
-    js: javascript(),
-    ts: javascript({ typescript: true }),
-    jsx: javascript({ jsx: true }),
-    tsx: javascript({ typescript: true, jsx: true }),
-    java: java(),
-    py: python(),
-    c: cpp(),
-    cpp: cpp(),
-    html: html(),
-    css: css(),
-    php: php(),
-    json: json(),
-};
-
-const languageNames = {
-    js: "JavaScript",
-    ts: "TypeScript",
-    jsx: "JSX",
-    tsx: "TSX",
-    java: "Java",
-    py: "Python",
-    c: "C",
-    cpp: "C++",
-    html: "HTML",
-    css: "CSS",
-    php: "PHP",
-    json: "JSON",
-};
-
-export default function Client({ slug }: Slug) {
+export default function Client() {
     const router = useRouter();
-    const { crew, loading } = useCrew(slug as string);
+
+    const { selectedCrewId } = useSelectedCrew()
+    const { crew, loading } = useCrew(selectedCrewId as string);
 
     const [language, setLanguage] = useState<LanguageKey>("js");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -94,7 +56,7 @@ export default function Client({ slug }: Slug) {
 
     return (
         <main>
-            <CrewNav slug={slug} pageTitle="Create File" />
+            <CrewNav selectedCrewId={selectedCrewId} pageTitle="Create File" />
 
             <div className="flex flex-row-reverse gap-6 my-8">
                 <div className="flex flex-col justify-between w-1/5">

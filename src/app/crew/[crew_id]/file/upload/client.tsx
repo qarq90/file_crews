@@ -11,6 +11,7 @@ import Button from "@/components/ui/button";
 import { insertFileRow, uploadToPinata } from "@/functions/file-functions";
 import { getFileSize, getFileType } from "@/functions/file-functions";
 import { Processing } from "@/components/loaders/processing";
+import { useSelectedCrew } from "@/stores/useCrew";
 
 export default function Client({ slug }: Slug) {
     const router = useRouter()
@@ -18,9 +19,11 @@ export default function Client({ slug }: Slug) {
     const [selectedFiles, setSelectedFiles] = useState<FileType[]>([]);
     const [uploading, setUploading] = useState<boolean>(false)
 
+    const { selectedCrewId } = useSelectedCrew()
+
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const { crew, loading } = useCrew(slug as string);
+    const { crew, loading } = useCrew(selectedCrewId as string);
 
     const handleFiles = async (files: File[]) => {
         const mappedFiles: FileType[] = files.map((file) => ({
@@ -70,7 +73,7 @@ export default function Client({ slug }: Slug) {
 
     if (uploading) return (
         <main>
-            <CrewNav slug={slug} pageTitle="Upload Files" />
+            <CrewNav selectedCrewId={selectedCrewId} pageTitle="Upload Files" />
             <div className="mt-24" />
             <Processing />
         </main>
@@ -79,7 +82,7 @@ export default function Client({ slug }: Slug) {
 
     return (
         <main>
-            <CrewNav slug={slug} pageTitle="Upload Files" />
+            <CrewNav selectedCrewId={selectedCrewId} pageTitle="Upload Files" />
 
             <FileUpload handleFiles={handleFiles} ref={fileInputRef} />
 

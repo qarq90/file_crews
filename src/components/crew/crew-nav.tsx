@@ -7,13 +7,13 @@ import Cookies from "js-cookie";
 import { useCrew } from "@/hooks/useCrew";
 
 interface CrewNavProps {
-    slug: string;
+    selectedCrewId: string;
     pageTitle: string | undefined
 }
 
-export function CrewNav({ slug, pageTitle }: CrewNavProps) {
+export function CrewNav({ selectedCrewId, pageTitle }: CrewNavProps) {
     const router = useRouter()
-    const { crew, loading } = useCrew(slug as string);
+    const { crew, loading } = useCrew(selectedCrewId as string);
 
     const logoutHandler = async () => {
         try {

@@ -1,12 +1,10 @@
 import { BodyWrapper } from "@/components/wrappers";
 import Client from "./client";
 
-export default function UploadFiles({ params }: CrewSlug) {
-    const { slug } = params;
-
+export default async function CreateFile() {
     return (
         <BodyWrapper>
-            <Client slug={slug} />
+            <Client />
         </BodyWrapper>
     );
 }

@@ -3,6 +3,7 @@
 import { LoadingNav } from "@/components/loaders/loading-nav";
 import { useRouter } from "next/navigation";
 import { useCrew } from "@/hooks/useCrew";
+import { LanguageKey, languageNames, languageMap } from "@/lib/editor";
 import { CrewFooter } from "@/components/crew/crew-footer";
 import { CrewNav } from "@/components/crew/crew-nav";
 import { useState, useEffect } from "react";
@@ -24,47 +25,16 @@ import Button from "@/components/ui/button";
 import { createFileRow, deleteFileRow, fetchFile, updateFileRow } from "@/functions/file-functions";
 import Input from "@/components/ui/input";
 import { useSelectedFile } from "@/stores/useFile";
+import { useSelectedCrew } from "@/stores/useCrew";
 
-type LanguageKey = "js" | "ts" | "jsx" | "tsx" | "java" | "py" | "c" | "cpp" | "html" | "css" | "php" | "json";
 type ModalType = "clear" | "delete" | "rename" | "save" | "";
 
-const languageMap: Record<string, Extension> = {
-    js: javascript(),
-    ts: javascript({ typescript: true }),
-    jsx: javascript({ jsx: true }),
-    tsx: javascript({ typescript: true, jsx: true }),
-    java: java(),
-    py: python(),
-    c: cpp(),
-    cpp: cpp(),
-    html: html(),
-    css: css(),
-    php: php(),
-    json: json(),
-};
-
-const languageNames = {
-    js: "JavaScript",
-    ts: "TypeScript",
-    jsx: "JSX",
-    tsx: "TSX",
-    java: "Java",
-    py: "Python",
-    c: "C",
-    cpp: "C++",
-    html: "HTML",
-    css: "CSS",
-    php: "PHP",
-    json: "JSON",
-};
-
-type EditSlug = {
-    slug: string;
-};
-
-export default function Client({ slug }: EditSlug) {
+export default function Client() {
     const router = useRouter();
-    const { crew, loading } = useCrew(slug as string);
+
+    const { selectedCrewId } = useSelectedCrew()
+
+    const { crew, loading } = useCrew(selectedCrewId as string);
 
     const [language, setLanguage] = useState<LanguageKey>("js");
     const [activeModal, setActiveModal] = useState<ModalType>("");
@@ -143,7 +113,7 @@ export default function Client({ slug }: EditSlug) {
 
     return (
         <main>
-            <CrewNav slug={slug} pageTitle="Edit File" />
+            <CrewNav selectedCrewId={selectedCrewId} pageTitle="Edit File" />
 
             <div className="flex flex-row-reverse gap-6 my-8">
                 <div className="flex flex-col justify-between w-1/5">

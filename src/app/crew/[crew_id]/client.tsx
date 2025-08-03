@@ -13,8 +13,9 @@ import { useEffect, useState } from "react";
 import Button from "@/components/ui/button";
 import Title from "@/components/ui/title";
 import { useSelectedFile } from "@/stores/useFile";
+import { useSelectedCrew } from "@/stores/useCrew";
 
-export default function Client({ slug }: Slug) {
+export default function Client() {
     const router = useRouter()
 
     const [files, setFiles] = useState<FileType[]>([]);
@@ -23,12 +24,13 @@ export default function Client({ slug }: Slug) {
     const [isDeleting, setIsDeleting] = useState(false);
 
     const { setSelectedFileId } = useSelectedFile()
+    const { selectedCrewId } = useSelectedCrew()
 
-    const { crew, loading } = useCrew(slug as string);
+    const { crew, loading } = useCrew(selectedCrewId as string);
 
     const getFiles = async () => {
         try {
-            const res = await fetchFiles(slug);
+            const res = await fetchFiles(selectedCrewId);
             setFiles(res.result);
         } catch {
             router.push("/crews");
@@ -38,14 +40,14 @@ export default function Client({ slug }: Slug) {
 
     useEffect(() => {
         setSelectedFileId("")
-    }, [slug])
+    }, [])
 
     const viewFile = (link: string, file_id: string) => {
         setSelectedFileId(file_id);
         if (link.startsWith("https://aquamarine-patient-galliform-980.mypinata.cloud/ipfs")) {
             window.open(link, '_blank');
         } else {
-            router.push(`/crew/${crew?.crew_id}/file/edit`)
+            router.push(`/crew/${crew?.crew_id}/file/${file_id}/edit`)
         }
     }
 
@@ -73,7 +75,7 @@ export default function Client({ slug }: Slug) {
 
     useEffect(() => {
         getFiles();
-    }, [slug]);
+    }, [selectedCrewId]);
 
     if (loading) return (
         <main>
@@ -87,7 +89,7 @@ export default function Client({ slug }: Slug) {
 
     return (
         <main>
-            <CrewNav slug={slug} pageTitle={crew?.crew_name} />
+            <CrewNav selectedCrewId={selectedCrewId} pageTitle={crew?.crew_name} />
 
             {files.length > 0 ? (
                 <div className="my-8 overflow-x-auto">

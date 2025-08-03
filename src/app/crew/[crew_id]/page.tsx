@@ -1,12 +1,10 @@
 import { BodyWrapper } from "@/components/wrappers";
 import Client from "./client";
 
-export default function Crews({ params }: CrewSlug) {
-    const { slug } = params;
-
+export default function Crews() {
     return (
         <BodyWrapper>
-            <Client slug={slug} />
+            <Client />
         </BodyWrapper>
     );
 }
