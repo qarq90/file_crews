@@ -1,14 +1,12 @@
 import { BodyWrapper } from "@/components/wrappers";
 import Client from "./client";
 
-export default function CreateFile({
-    params,
-}: {
-    params: { slug: string; id: string };
-}) {
+export default function CreateFile({ params }: CrewEditSlug) {
+    const { slug, id } = params;
+
     return (
         <BodyWrapper>
-            <Client slug={params.slug} id={params.id} />
+            <Client slug={slug} id={id} />
         </BodyWrapper>
     );
 }
