@@ -1,5 +1,4 @@
 "use client";;
-import { useFiles } from "@/hooks/useFiles";
 import { NoFiles } from "@/components/empty/no-files";
 import { LoadingNav } from "@/components/loaders/loading-nav";
 import { useRouter } from "next/navigation";
@@ -42,7 +41,7 @@ export default function Client({ slug }: Slug) {
         }
     }
 
-    const deleteFile = async (link: string, file_id: string) => {
+    const deleteFile = async () => {
         if (!fileToDelete) return;
 
         setIsDeleting(true);
@@ -153,7 +152,7 @@ export default function Client({ slug }: Slug) {
                         <Button
                             onClick={() => {
                                 if (fileToDelete) {
-                                    deleteFile(fileToDelete.url, fileToDelete.id);
+                                    deleteFile();
                                 }
                             }}
                         >

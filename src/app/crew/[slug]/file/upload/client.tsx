@@ -3,7 +3,6 @@ import { useState, useRef } from "react";
 import { LoadingNav } from "@/components/loaders/loading-nav";
 import { useRouter } from "next/navigation";
 import { useCrew } from "@/hooks/useCrew";
-import { FullScreenLoading } from "@/components/loaders/full-screen";
 import { CrewFooter } from "@/components/crew/crew-footer";
 import { CrewNav } from "@/components/crew/crew-nav";
 import { FileUpload } from "@/components/ui/file-input";

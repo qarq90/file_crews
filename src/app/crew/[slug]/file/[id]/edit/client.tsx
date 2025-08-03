@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { javascript } from "@codemirror/lang-javascript";
+import { Extension } from "@codemirror/state";
 import { python } from "@codemirror/lang-python";
 import { java } from "@codemirror/lang-java";
 import { cpp } from "@codemirror/lang-cpp";
@@ -26,7 +27,7 @@ import Input from "@/components/ui/input";
 type LanguageKey = "js" | "ts" | "jsx" | "tsx" | "java" | "py" | "c" | "cpp" | "html" | "css" | "php" | "json";
 type ModalType = "clear" | "delete" | "rename" | "save" | "";
 
-const languageMap: Record<string, any> = {
+const languageMap: Record<string, Extension> = {
     js: javascript(),
     ts: javascript({ typescript: true }),
     jsx: javascript({ jsx: true }),

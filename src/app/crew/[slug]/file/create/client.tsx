@@ -2,6 +2,7 @@
 
 import { LoadingNav } from "@/components/loaders/loading-nav";
 import { useRouter } from "next/navigation";
+import { Extension } from "@codemirror/state";
 import { useCrew } from "@/hooks/useCrew";
 import { CrewFooter } from "@/components/crew/crew-footer";
 import { CrewNav } from "@/components/crew/crew-nav";
@@ -26,7 +27,7 @@ import Input from "@/components/ui/input";
 
 type LanguageKey = "js" | "ts" | "jsx" | "tsx" | "java" | "py" | "c" | "cpp" | "html" | "css" | "php" | "json";
 
-const languageMap: Record<string, any> = {
+const languageMap: Record<string, Extension> = {
     js: javascript(),
     ts: javascript({ typescript: true }),
     jsx: javascript({ jsx: true }),

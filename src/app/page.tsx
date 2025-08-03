@@ -1,7 +1,7 @@
 import Title from "@/components/ui/title";
 import { BodyWrapper } from "@/components/wrappers";
 import Link from "next/link";
-import { FaUpload, FaDownload, FaFireAlt, FaUsers, FaPlus } from "react-icons/fa";
+import { FaUpload, FaDownload, FaUsers, FaPlus } from "react-icons/fa";
 
 export default function Home() {
   return (
