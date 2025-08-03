@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { LoadingNav } from "@/components/loaders/loading-nav";
 import { useRouter } from "next/navigation";
 import { useCrew } from "@/hooks/useCrew";
@@ -9,17 +8,8 @@ import { CrewNav } from "@/components/crew/crew-nav";
 import { useState, useEffect } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { oneDark } from "@codemirror/theme-one-dark";
-import { javascript } from "@codemirror/lang-javascript";
-import { Extension } from "@codemirror/state";
-import { python } from "@codemirror/lang-python";
-import { java } from "@codemirror/lang-java";
-import { cpp } from "@codemirror/lang-cpp";
-import { html } from "@codemirror/lang-html";
 import Title from "@/components/ui/title";
 import Modal from "@/components/ui/modal";
-import { css } from "@codemirror/lang-css";
-import { php } from "@codemirror/lang-php";
-import { json } from "@codemirror/lang-json";
 import Label from "@/components/ui/label";
 import Button from "@/components/ui/button";
 import { createFileRow, deleteFileRow, fetchFile, updateFileRow } from "@/functions/file-functions";

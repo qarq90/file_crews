@@ -1,6 +1,5 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { FaTimes } from "react-icons/fa";
-import Button from "./button";
 
 interface ModalProps {
   isOpen: boolean;

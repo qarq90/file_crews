@@ -13,7 +13,7 @@ import { getFileSize, getFileType } from "@/functions/file-functions";
 import { Processing } from "@/components/loaders/processing";
 import { useSelectedCrew } from "@/stores/useCrew";
 
-export default function Client({ slug }: Slug) {
+export default function Client() {
     const router = useRouter()
 
     const [selectedFiles, setSelectedFiles] = useState<FileType[]>([]);
