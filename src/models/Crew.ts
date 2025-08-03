@@ -33,9 +33,12 @@ interface CrewSlug {
     };
 }
 
-type CrewEditSlug = {
-    params: Promise<{ slug: string; id: string }>;
-};
+interface CrewEditSlug {
+    params: {
+        slug: string;
+        id: string;
+    };
+}
 
 type Slug = {
     slug: string;
