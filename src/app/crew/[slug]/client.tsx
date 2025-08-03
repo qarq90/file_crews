@@ -12,6 +12,7 @@ import { CrewNav } from "@/components/crew/crew-nav";
 import { useEffect, useState } from "react";
 import Button from "@/components/ui/button";
 import Title from "@/components/ui/title";
+import { useSelectedFile } from "@/stores/useFile";
 
 export default function Client({ slug }: Slug) {
     const router = useRouter()
@@ -20,6 +21,8 @@ export default function Client({ slug }: Slug) {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [fileToDelete, setFileToDelete] = useState<{ url: string, id: string } | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
+
+    const { setSelectedFileId } = useSelectedFile()
 
     const { crew, loading } = useCrew(slug as string);
 
@@ -33,7 +36,12 @@ export default function Client({ slug }: Slug) {
         }
     };
 
+    useEffect(() => {
+        setSelectedFileId("")
+    }, [slug])
+
     const viewFile = (link: string, file_id: string) => {
+        setSelectedFileId(file_id);
         if (link.startsWith("https://aquamarine-patient-galliform-980.mypinata.cloud/ipfs")) {
             window.open(link, '_blank');
         } else {

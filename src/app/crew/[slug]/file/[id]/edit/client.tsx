@@ -23,6 +23,7 @@ import Label from "@/components/ui/label";
 import Button from "@/components/ui/button";
 import { createFileRow, deleteFileRow, fetchFile, updateFileRow } from "@/functions/file-functions";
 import Input from "@/components/ui/input";
+import { useSelectedFile } from "@/stores/useFile";
 
 type LanguageKey = "js" | "ts" | "jsx" | "tsx" | "java" | "py" | "c" | "cpp" | "html" | "css" | "php" | "json";
 type ModalType = "clear" | "delete" | "rename" | "save" | "";
@@ -59,10 +60,9 @@ const languageNames = {
 
 type EditSlug = {
     slug: string;
-    id: string;
 };
 
-export default function Client({ slug, id }: EditSlug) {
+export default function Client({ slug }: EditSlug) {
     const router = useRouter();
     const { crew, loading } = useCrew(slug as string);
 
@@ -74,6 +74,8 @@ export default function Client({ slug, id }: EditSlug) {
     const [fileName, setFileName] = useState("");
     const [errorMessage, setErrorMessage] = useState<string>("");
 
+    const { selectedFileId } = useSelectedFile()
+
     const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setLanguage(e.target.value as LanguageKey);
     };
@@ -82,14 +84,14 @@ export default function Client({ slug, id }: EditSlug) {
         const CodeFile: FileType = {
             file_name: fileName,
             file_type: language,
-            file_size: code.length,
+            file_size: code.length > 0 ? code.length : 0,
             file_url: code,
             file_id: file_id,
             file_crew_id: crew?.crew_id?.toString() ?? "",
         };
 
-        const result = id
-            ? await updateFileRow(id, CodeFile)
+        const result = selectedFileId
+            ? await updateFileRow(selectedFileId, CodeFile)
             : await createFileRow(crew?.crew_id?.toString() ?? "", CodeFile);
 
         if (result.status) {
@@ -120,8 +122,8 @@ export default function Client({ slug, id }: EditSlug) {
 
     useEffect(() => {
         const loadFile = async () => {
-            if (!id) return;
-            const { result, status } = await fetchFile(id);
+            if (!selectedFileId) return;
+            const { result, status } = await fetchFile(selectedFileId);
 
             if (status && result) {
                 setFileName(result.file_name || "");
@@ -135,7 +137,7 @@ export default function Client({ slug, id }: EditSlug) {
         };
 
         loadFile();
-    }, [id]);
+    }, [selectedFileId]);
 
     if (loading) return <LoadingNav />;
 
