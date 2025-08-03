@@ -11,9 +11,13 @@ export function useCrews() {
             try {
                 const result = await fetchCrews();
                 setCrews(result.result);
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Error fetching crews:", err);
-                setError(err.message || "Unknown error");
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Unknown error");
+                }
             } finally {
                 setLoading(false);
             }
