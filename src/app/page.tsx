@@ -1,3 +1,4 @@
+import Button from "@/components/ui/button";
 import Title from "@/components/ui/title";
 import { BodyWrapper } from "@/components/wrappers";
 import Link from "next/link";

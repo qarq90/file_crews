@@ -51,7 +51,7 @@ export function CrewNav({ selectedCrewId, pageTitle }: CrewNavProps) {
                 <Title>{pageTitle}</Title>
             </section>
             <section className="flex flex-row gap-4 w-1/4">
-                <Button disabled={loading}>Edit</Button>
+                {/* <Button disabled={loading}>Edit</Button> */}
                 <Button disabled={loading} onClick={logoutHandler}>Logout</Button>
             </section>
         </nav>
