@@ -27,6 +27,7 @@ export default function Client() {
 
     const createCrewHandler = async () => {
         try {
+            setCreating(true)
             if (crewData.crew_name.length > 14) {
                 setErrorMessage("The crew name is too long. Please make sure it is 14 characters or fewer.");
                 return;
@@ -53,7 +54,6 @@ export default function Client() {
                 return;
             }
 
-            setCreating(true)
             const { banner_id, banner_hash, banner_url } = uploadRes.result;
 
             const encryptedToken = mono_alphabetic_encrypt(crewData.crew_token)

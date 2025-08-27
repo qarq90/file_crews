@@ -27,7 +27,7 @@ export function CrewNav({ selectedCrewId, pageTitle }: CrewNavProps) {
     };
 
     const goBack = () => {
-        router.push(`/crew/${crew?.crew_id}`)
+        router.back()
     }
 
     return (
@@ -45,7 +45,7 @@ export function CrewNav({ selectedCrewId, pageTitle }: CrewNavProps) {
                         alt="Crew Banner"
                         width={128}
                         height={128}
-                        className="rounded-full w-12 h-12 shadow-md"
+                        className="rounded-full object-cover w-12 h-12 shadow-md"
                     />
                 )}
                 <Title>{pageTitle}</Title>

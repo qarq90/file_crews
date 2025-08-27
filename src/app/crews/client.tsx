@@ -14,6 +14,7 @@ import { mono_alphabetic_encrypt } from "@/functions/cipher-functions";
 import { Footer } from "@/components/crews/crews-footer";
 import { useCrews } from "@/hooks/useCrews";
 import { useSelectedCrew } from "@/stores/useCrew";
+import { FullScreenLoading } from "@/components/loaders/full-screen";
 
 export default function Client() {
     const router = useRouter()
@@ -22,6 +23,8 @@ export default function Client() {
     const [crewPassword, setCrewPassword] = useState("");
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [verifying, setIsVerifying] = useState(false)
+
     const { crews, loading } = useCrews();
 
     const { setSelectedCrewId } = useSelectedCrew()
@@ -46,9 +49,12 @@ export default function Client() {
     };
 
     const handlePasswordSubmit = () => {
+        setIsVerifying(true)
+
         if (!crewPassword) {
             setIsModalOpen(false)
             setErrorMessage("Please make sure to fill in all required fields before submitting.");
+            setIsVerifying(false)
             return;
         };
 
@@ -63,6 +69,7 @@ export default function Client() {
             setCrewPassword("")
             setIsModalOpen(false)
             setErrorMessage("Incorrect Hood Password.");
+            setIsVerifying(false)
             return;
         }
     };
@@ -72,6 +79,8 @@ export default function Client() {
     }, [])
 
     if (loading) return <Processing />
+
+    if (verifying) return <FullScreenLoading />
 
     return (
         <main>
