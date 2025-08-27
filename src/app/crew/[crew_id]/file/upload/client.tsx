@@ -52,11 +52,11 @@ export default function Client() {
                     const supabaseResult = await insertFileRow(crew?.crew_id?.toString() ?? "", file, pinataResult);
                     if (supabaseResult.status) {
                         setUploading(false);
-                        router.push(`/crew/${crew?.crew_id}`)
                     }
                 } catch (e) {
                     console.log("Something went wrong: ", e);
                 } finally {
+                    router.push(`/crew/${crew?.crew_id}`)
                     setUploading(false);
                 }
             })

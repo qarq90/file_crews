@@ -5,7 +5,7 @@ import Title from "@/components/ui/title";
 import { BodyWrapper } from "@/components/wrappers";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaUpload, FaDownload, FaUsers, FaPlus } from "react-icons/fa";
+import { FaUpload, FaDownload, FaUsers } from "react-icons/fa";
 
 export default function Home() {
   const router = useRouter()
@@ -22,7 +22,7 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
           <Link
             href="/crews"
-            className="bg-sidebar p-6 shadow-md hover:shadow-lg transition-all"
+            className="hover:bg-sidebar p-6 hover:shadow-lg transition-all"
           >
             <h2 className="text-foreground text-xl font-semibold mb-2 flex items-center gap-2">
               <FaUpload /> Upload Cheats
@@ -34,7 +34,7 @@ export default function Home() {
 
           <Link
             href="/crews"
-            className="bg-sidebar p-6 shadow-md hover:shadow-lg transition-all"
+            className="hover:bg-sidebar p-6 hover:shadow-lg transition-all"
           >
             <h2 className="text-foreground text-xl font-semibold mb-2 flex items-center gap-2">
               <FaDownload /> Download Materials
@@ -45,7 +45,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="w-2/3 mt-6 bg-sidebar p-6">
+        <div className="w-2/3 mt-6 hover:bg-sidebar p-6">
           <h3 className="text-foreground text-xl font-semibold mb-2 flex items-center gap-2">
             <FaUsers /> Join or Create Crews
           </h3>
