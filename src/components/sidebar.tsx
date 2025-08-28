@@ -34,7 +34,7 @@ export const Sidebar = () => {
   return (
     <nav>
       <Button
-        className="absolute left-4 top-5 z-50 flex items-center justify-center bg-background p-3 transform-skew-content text-foreground md:hidden"
+        className="absolute left-4 top-5 z-50 flex items-center justify-center bg-background p-3 text-foreground md:hidden"
         onClick={toggleSidebar}
       >
         {!isOpen ? <FaBars size={20} /> : <FaTimes size={20} />}
