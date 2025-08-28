@@ -27,7 +27,7 @@ export function CrewNav({ selectedCrewId, pageTitle }: CrewNavProps) {
     };
 
     const goBack = () => {
-        router.back()
+        router.push(`/crew/${crew?.crew_id}`)
     }
 
     return (

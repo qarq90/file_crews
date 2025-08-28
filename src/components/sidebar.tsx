@@ -34,7 +34,7 @@ export const Sidebar = () => {
   return (
     <nav>
       <Button
-        className="absolute left-4 top-5 z-50 flex items-center justify-center rounded-md bg-background p-3 text-foreground md:hidden"
+        className="absolute left-4 top-5 z-50 flex items-center justify-center bg-background p-3 transform-skew-content text-foreground md:hidden"
         onClick={toggleSidebar}
       >
         {!isOpen ? <FaBars size={20} /> : <FaTimes size={20} />}
@@ -60,7 +60,7 @@ export const Sidebar = () => {
               href={href}
               onClick={closeSidebar}
               className={clsx(
-                "flex items-center gap-3 rounded-md px-3 py-2 text-base transition-colors hover:bg-foreground/10 hover:text-foreground",
+                "flex items-center gap-3 px-3 py-2 text-base transition-colors hover:bg-foreground/10 hover:text-foreground",
                 pathname === href && "bg-foreground/10",
               )}
             >

@@ -89,7 +89,7 @@ export default function Client() {
                     <div
                         key={index}
                         onClick={() => handleCrewClick(crew)}
-                        className="flex flex-col gap-4 bg-foreground/10 py-8 rounded-md items-center cursor-pointer hover:bg-foreground/20 transition"
+                        className="flex flex-col gap-4 bg-foreground/10 py-8 items-center cursor-pointer hover:bg-foreground/20 transition"
                     >
                         <Image
                             src={crew.banner_url}
